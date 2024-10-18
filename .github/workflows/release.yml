@@ -19,11 +19,11 @@ jobs:
       postgres:
         # Docker Hub image
         image: postgres
-        # Provide the password for postgres
+        # Va récupérer les informations nécessaires à la connexion à la BDD à partir des secrets que j'ai configuré.
         env:
-          POSTGRES_DB: forknow
-          POSTGRES_USER: forknow
-          POSTGRES_PASSWORD: forknow
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
