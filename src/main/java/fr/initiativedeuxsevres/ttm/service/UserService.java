@@ -1,5 +1,8 @@
 package fr.initiativedeuxsevres.ttm.service;
 
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +23,9 @@ public class UserService {
      */
     public UserEntity createUser(UserEntity user) {
         return userRepository.save(user);
+    }
+
+    public void deleteUserById(Long userId) {
+        return;
     }
 }

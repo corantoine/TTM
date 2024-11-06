@@ -7,10 +7,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.userdetails.User;
+
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
-import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class UserServiceTest {
         // Appeler la méthode createUser de UserService avec les paramètres spécifiés
         UserEntity user = userService.createUser(parrainDto);
 
-        // Vérifier que les données utilisateurs ont bien été entrées et sont corrects
+        // Vérifier que les données utilisateurs ont bien été entrées et sont correctes
         Assertions.assertEquals(user.getId(), idParrain);
         Assertions.assertEquals(user.getNom(), parrainName);
         Assertions.assertEquals(user.getPrenom(), parrainFirstname);
@@ -74,9 +75,30 @@ public class UserServiceTest {
 
     @DisplayName("Tester la méthode de suppression d'un utilisateur")
     @Test
-    public void userSuppresionTest(){
+    public void deleteUserByIdTest(){
+        long idParrain = 1;
+        String parrainName = "Doe";
+        String parrainFirstname = "John";
+        String parrainPlateformeInitiative = "Deux-Sèvres";
+        Role parrainRole = Role.PARRAIN;
 
+    UserEntity userParrain = UserEntity.builder()
+            .id(idParrain)
+            .nom(parrainName)
+            .prenom(parrainFirstname)
+            .plateformeInitiative(parrainPlateformeInitiative)
+            .role(parrainRole)
+            .build();
 
+        // Simuler la présence de l'utilisateur dans le repository
+        when(userRepository.findById(idParrain)).thenReturn(Optional.of(userParrain));
+
+        userService.deleteUserById(idParrain);
+        verify(userRepository, times(1)).deleteById(idParrain);
+
+        //Vérifier que l'utilisateur a bien été supprimé
+        when(userRepository.findById(idParrain)).thenReturn(Optional.empty());
+        Assertions.assertFalse(userRepository.findById(idParrain).isPresent());
 
     }
 }
