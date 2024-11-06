@@ -1,6 +1,7 @@
 package fr.initiativedeuxsevres.ttm.serviceTest;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -30,6 +31,7 @@ public class UserServiceTest {
     @InjectMocks
     UserService userService;
 
+    @DisplayName("Tester la méthode de création d'un utilisateur")
     @Test
     public void userCreationTest(){
 
@@ -39,6 +41,13 @@ public class UserServiceTest {
         String parrainFirstname = "John";
         String parrainPlateformeInitiative = "Deux-Sèvres";
         Role parrainRole = Role.PARRAIN;
+
+        UserEntity parrainDto = UserEntity.builder()
+                .nom(parrainName)
+                .prenom(parrainFirstname)
+                .plateformeInitiative(parrainPlateformeInitiative)
+                .role(parrainRole)
+                .build();
 
         UserEntity parrain = UserEntity.builder()
                 .id(idParrain)
@@ -52,7 +61,7 @@ public class UserServiceTest {
         when(userRepository.save(any(UserEntity.class))).thenReturn(parrain);
 
         // Appeler la méthode createUser de UserService avec les paramètres spécifiés
-        UserEntity user = userService.createUser(parrain);
+        UserEntity user = userService.createUser(parrainDto);
 
         // Vérifier que les données utilisateurs ont bien été entrées et sont corrects
         Assertions.assertEquals(user.getId(), idParrain);
