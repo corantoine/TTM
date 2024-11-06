@@ -72,4 +72,11 @@ public class UserServiceTest {
 
     }
 
+    @DisplayName("Tester la méthode de suppression d'un utilisateur")
+    @Test
+    public void userSuppresionTest(){
+
+
+
+    }
 }
