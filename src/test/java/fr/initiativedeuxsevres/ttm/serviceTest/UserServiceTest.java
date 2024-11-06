@@ -32,19 +32,6 @@ public class UserServiceTest {
 
     @Test
     public void userCreationTest(){
-        // Définir l'ID de l'utilisateur qui va créer le profil
-        long idAdmin = 1;
-
-        // Créer un objet User avec l'ID et le nom d'utilisateur spécifiés pour l'admin
-        UserEntity admin = UserEntity.builder()
-                .id(idAdmin)
-                .nom("Admin")
-                .prenom("Admin")
-                .plateformeInitiative("Deux-sèvres")
-                .role(Role.ADMIN)
-                .build();
-        // Simuler le comportement de userRepository pour retourner l'utilisateur créé lorsque findById est appelé
-        when(userRepository.findById(idAdmin)).thenReturn(Optional.of(admin));
 
         // Préciser les détails de l'utilisateur à créer
         long idParrain = 2;
@@ -73,9 +60,6 @@ public class UserServiceTest {
         Assertions.assertEquals(user.getPrenom(), parrainFirstname);
         Assertions.assertEquals(user.getPlateformeInitiative(), parrainPlateformeInitiative);
         Assertions.assertEquals(user.getRole(), parrainRole);
-
-
-
 
     }
 
