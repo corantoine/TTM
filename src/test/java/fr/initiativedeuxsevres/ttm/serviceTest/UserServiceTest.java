@@ -98,6 +98,7 @@ public class UserServiceTest {
 
         //Vérifier que l'utilisateur a bien été supprimé
         when(userRepository.findById(idParrain)).thenReturn(Optional.empty());
+        // Vérifier que l'utilisateur a bien été supprimé
         Assertions.assertFalse(userRepository.findById(idParrain).isPresent());
 
     }

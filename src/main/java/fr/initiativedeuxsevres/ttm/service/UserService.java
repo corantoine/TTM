@@ -26,6 +26,12 @@ public class UserService {
     }
 
     public void deleteUserById(Long userId) {
-        return;
+        Optional<UserEntity> maybeUser = userRepository.findById(userId);
+        if (maybeUser.isPresent()) {
+            userRepository.deleteById(userId);
+            return;
+        }
+        String erreurMessage = String.format("L'utilisateur %d n'existe pas", userId);
+        throw new NoSuchElementException(erreurMessage);
     }
 }
