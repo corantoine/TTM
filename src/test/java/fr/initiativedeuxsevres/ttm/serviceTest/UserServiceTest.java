@@ -1,6 +1,7 @@
 package fr.initiativedeuxsevres.ttm.serviceTest;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -32,16 +33,40 @@ public class UserServiceTest {
     @InjectMocks
     UserService userService;
 
+    private long idParrain;
+    private UserEntity userParrain;
+    String parrainName = "Doe";
+    String parrainFirstname = "John";
+    String parrainPlateformeInitiative = "Deux-Sèvres";
+    Role parrainRole = Role.PARRAIN;
+
+    @BeforeEach
+    public void setUp() {
+        idParrain = 1;
+        String parrainName = "Doe";
+        String parrainFirstname = "John";
+        String parrainPlateformeInitiative = "Deux-Sèvres";
+        Role parrainRole = Role.PARRAIN;
+
+        userParrain = UserEntity.builder()
+                .id(idParrain)
+                .nom(parrainName)
+                .prenom(parrainFirstname)
+                .plateformeInitiative(parrainPlateformeInitiative)
+                .role(parrainRole)
+                .build();
+    }
+
     @DisplayName("Tester la méthode de création d'un utilisateur")
     @Test
     public void userCreationTest(){
 
         // Préciser les détails de l'utilisateur à créer
-        long idParrain = 2;
-        String parrainName = "Doe";
-        String parrainFirstname = "John";
-        String parrainPlateformeInitiative = "Deux-Sèvres";
-        Role parrainRole = Role.PARRAIN;
+//        long idParrain = 2;
+//        String parrainName = "Doe";
+//        String parrainFirstname = "John";
+//        String parrainPlateformeInitiative = "Deux-Sèvres";
+//        Role parrainRole = Role.PARRAIN;
 
         UserEntity parrainDto = UserEntity.builder()
                 .nom(parrainName)
@@ -50,16 +75,16 @@ public class UserServiceTest {
                 .role(parrainRole)
                 .build();
 
-        UserEntity parrain = UserEntity.builder()
-                .id(idParrain)
-                .nom(parrainName)
-                .prenom(parrainFirstname)
-                .plateformeInitiative(parrainPlateformeInitiative)
-                .role(parrainRole)
-                .build();
+//        UserEntity parrain = UserEntity.builder()
+//                .id(idParrain)
+//                .nom(parrainName)
+//                .prenom(parrainFirstname)
+//                .plateformeInitiative(parrainPlateformeInitiative)
+//                .role(parrainRole)
+//                .build();
 
         // Simuler le comportement de userRepository pour retourner l'utilisateur créé lorsque save est appelé
-        when(userRepository.save(any(UserEntity.class))).thenReturn(parrain);
+        when(userRepository.save(any(UserEntity.class))).thenReturn(userParrain);
 
         // Appeler la méthode createUser de UserService avec les paramètres spécifiés
         UserEntity user = userService.createUser(parrainDto);
@@ -76,19 +101,19 @@ public class UserServiceTest {
     @DisplayName("Tester la méthode de suppression d'un utilisateur")
     @Test
     public void deleteUserByIdTest(){
-        long idParrain = 1;
-        String parrainName = "Doe";
-        String parrainFirstname = "John";
-        String parrainPlateformeInitiative = "Deux-Sèvres";
-        Role parrainRole = Role.PARRAIN;
+//        long idParrain = 1;
+//        String parrainName = "Doe";
+//        String parrainFirstname = "John";
+//        String parrainPlateformeInitiative = "Deux-Sèvres";
+//        Role parrainRole = Role.PARRAIN;
 
-    UserEntity userParrain = UserEntity.builder()
-            .id(idParrain)
-            .nom(parrainName)
-            .prenom(parrainFirstname)
-            .plateformeInitiative(parrainPlateformeInitiative)
-            .role(parrainRole)
-            .build();
+//    UserEntity userParrain = UserEntity.builder()
+//            .id(idParrain)
+//            .nom(parrainName)
+//            .prenom(parrainFirstname)
+//            .plateformeInitiative(parrainPlateformeInitiative)
+//            .role(parrainRole)
+//            .build();
 
         // Simuler la présence de l'utilisateur dans le repository
         when(userRepository.findById(idParrain)).thenReturn(Optional.of(userParrain));
