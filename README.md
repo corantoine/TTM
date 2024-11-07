@@ -2,7 +2,7 @@
 
 ## Description
 TTM est une application développée pour l'association Réseau Initiative.
-Elle a pour but de faciliter et renforcer le système de rencontres et de parrainage entre futurs parrains et porteurs projets.
+Elle a pour but de faciliter et renforcer le système de rencontres et de parrainage entre futurs parrains et porteurs de projets.
 
 ## Prérequis
 - Git
