@@ -24,26 +24,26 @@ import { useLocation } from 'react-router-dom'
 //   }
 // }
 export default function Header() {
-  const location = useLocation()
-  const currentPath = location.pathname
-  console.log('log de currentPath : ', currentPath)
+  // const location = useLocation()
+  // const currentPath = location.pathname
+  // console.log('log de currentPath : ', currentPath)
 
-  return (
-    <nav className="header">
-      <h3 className="title-site">
-        TTM
-      </h3>
-      <div>
-        <h1 className="header-title">Bienvenue sur TTM !</h1>
-      </div>
-      <ul className="nav-items">
-        <li className="li-nav">
-          LOGO
-        </li>
-        <li className="li-nav">
-          CONNEXION
-        </li>
-      </ul>
-    </nav>
-  )
+  // return (
+  //   <nav className="header">
+  //     <h3 className="title-site">
+  //       TTM
+  //     </h3>
+  //     <div>
+  //       <h1 className="header-title">Bienvenue sur TTM !</h1>
+  //     </div>
+  //     <ul className="nav-items">
+  //       <li className="li-nav">
+  //         LOGO
+  //       </li>
+  //       <li className="li-nav">
+  //         CONNEXION
+  //       </li>
+  //     </ul>
+  //   </nav>
+  // )
 }

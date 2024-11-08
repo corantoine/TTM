@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.body_home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.app_logo {
+  margin: 20px;
+  display: block;
+  height: auto;
+  min-width: 30%;
+  max-width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.texte_accueil {
+  flex-wrap: wrap;
+  border: 1px solid rgb(229, 25, 100);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 40%; /* Utilisation de pourcentages pour la largeur */
+  margin: auto;
+  /* font-size: 1rem; Utilisation de rem pour la taille de la police */
+}
+
+#home_button {
+  padding: 15px 25px;
+  margin: 10px;
+  border-radius: 25px;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(229, 25, 100);
+  border: none;
+  /* max-width: 25%; */
+}
+
+/********** Media **********/
+@media (min-width: 768px) {
+  .texte_accueil {
+    max-width: 40%; /* Ajustement de la largeur pour les écrans plus grands */
+    font-size: 1.25rem; /*Ajustement de la taille de la police */
+    margin: 10px;
+  }
+
+  img {
+    max-width: 30%;
+  }
+
+  #home_button{
+    min-width: 3vw;
+  }
+}
