@@ -29,6 +29,9 @@
   max-width: 40%; /* Utilisation de pourcentages pour la largeur */
   margin: auto;
   /* font-size: 1rem; Utilisation de rem pour la taille de la police */
+  text-align: center;
+  font-family: sans-serif;
+  font-style: bold;
 }
 
 #home_button {
@@ -55,6 +58,8 @@
   }
 
   #home_button{
-    min-width: 3vw;
-  }
+    min-width: 4vw;
+    padding:25px 35px;
+    border-radius: 35px;
+}
 }
