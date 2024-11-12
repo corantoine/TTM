@@ -1,0 +1,22 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+  }
+    
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    border-top: 1px solid rgb(229, 25, 100); /* Bordure supérieure rouge */
+    padding: 0.5rem;
+  }
+
+  .logo-ttm-footer{
+    width: 10em;
+    height: auto;
+    cursor: pointer;
+  }
+  
