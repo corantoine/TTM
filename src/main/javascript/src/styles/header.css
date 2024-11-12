@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    position: relative; /* Permettre le positionnement absolu des enfants */
+    font-family: sans-serif;
+    height: 10.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgb(229, 25, 100);
+}
+
+.header-title-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+  
+.header-title {
+    font-weight: bolder;
+    font-size: 2.3rem;
+    color: #2e404f;
+    margin: 0;
+}
+  
+.nav-items {
+    list-style: none;
+}
+  
+.login-logo {
+        width: 12em;
+        height: auto;
+        cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
+}
+
+.logo-initiative{
+        cursor: pointer;
+}
+
+      
+/********** Media **********/
+@media (min-width: 768px) {   
+    .header {
+        justify-content: space-between; /* Garder les autres éléments espacés */
+    }
+    
+    .header-title-container {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+    }
+      
+    .header-title {
+        font-weight: bolder;
+        font-size: 2.3rem;
+        color: #2e404f;
+        margin: 0;
+    }
+      
+    .nav-items {
+        list-style: none;
+    }
+      
+    .login-logo {
+            width: 12em;
+            height: auto;
+            cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
+    }
+    
+    .logo-initiative{
+            cursor: pointer;
+    }
+  }
+    

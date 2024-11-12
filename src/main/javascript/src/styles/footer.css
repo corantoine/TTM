@@ -1,0 +1,68 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden; /* Empêche le défilement horizontal */
+  }
+  
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: sans-serif;
+    border-top: 1px solid rgb(229, 25, 100); /* Bordure supérieure rouge */
+    padding: 0.5rem;
+  }
+  
+  .logo-ttm-footer {
+    width: 10em;
+    height: auto;
+    cursor: pointer;
+  }
+  
+  .footer-info {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 0 1rem;
+  }
+  
+  .footer-info-left, .footer-info-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgb(229, 25, 100);
+  }
+
+  .footer-info-left{
+    font-weight: bold;
+  }
+  
+  .footer-info p {
+    margin: 0.5rem 0;
+  }
+  
+  .social-network {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .sn-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  
+  .sn-logo {
+    width: 6em;
+    cursor: pointer;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+
+  a:visited{
+    color: rgb(229, 25, 100);
+  }
