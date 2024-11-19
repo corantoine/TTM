@@ -27,6 +27,7 @@ public class ConfigSpringSecurity {
     }
 
     @Bean
+    //TODO effectuer des tests pour les autorisations mises en place
     //Définition d'un bean pour l'encodage des mots de passe utilisant BCryptPasswordEncoder
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
