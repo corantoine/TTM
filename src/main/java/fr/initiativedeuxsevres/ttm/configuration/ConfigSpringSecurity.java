@@ -38,26 +38,26 @@ public class ConfigSpringSecurity {
 
     //Créer un utilisateur en dur pour tester l'accès aux différentes routes de l'application sans avoir besoin de configurer la bdd
     // Ne pas oublier d'ajuster les perm sur les routes pour faire les tests !
-     @Bean
-     public InMemoryUserDetailsManager userDetailsManager() {
-         return new InMemoryUserDetailsManager(
-                 User .builder()
-                     .username("user")
-                     .password(passwordEncoder().encode("pass"))
-                     .roles("PARRAIN")
-                     .build(),
-                 User.builder()
-                     .username("user")
-                     .password(passwordEncoder().encode("pass"))
-                     .roles("PORTEUR")
-                     .build()
-    //             User.builder()
-    //                 .username("admin")
-    //                 .password(passwordEncoder().encode("pass"))
-    //                 .roles("ADMIN")
-    //                 .build()
-         );
-     }
+    @Bean
+    public InMemoryUserDetailsManager userDetailsManager() {
+        return new InMemoryUserDetailsManager(
+                User .builder()
+                        .username("user")
+                        .password(passwordEncoder().encode("pass"))
+                        .roles("PARRAIN")
+                        .build(),
+                User.builder()
+                        .username("user")
+                        .password(passwordEncoder().encode("pass"))
+                        .roles("PORTEUR")
+                        .build()
+                //             User.builder()
+                //                 .username("admin")
+                //                 .password(passwordEncoder().encode("pass"))
+                //                 .roles("ADMIN")
+                //                 .build()
+        );
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -84,11 +84,11 @@ public class ConfigSpringSecurity {
                             .requestMatchers("/fil%20des%20profils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
                             .requestMatchers("/notifications").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
                             .requestMatchers("/boite%20a%20outils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name());
-             // On transforme la fonction lambda
+                    // On transforme la fonction lambda
                     // }).formLogin(login -> login // Configure la page de connexion
                     //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
                     //.permitAll()) // Permet à tout le monde d'accéder à la page de connexion
-             // par une méthode de référence :
+                    // par une méthode de référence :
                 }).formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // Permet à tout le monde d'accéder à la page de connexion
                 .logout(logout -> logout // Configure la déconnexion
                         //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
