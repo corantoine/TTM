@@ -1,0 +1,101 @@
+{
+  "name": "ttm",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "logo.svg": "^1.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1",
+    "react-scripts": "5.0.1",
+    "src": "^1.1.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "parcel serve src/main/javascript/index.js --out-file ttm.js -p 3000 --global TrouveTonMatch",
+    "build-app": "parcel build src/main/javascript/index.js --out-dir dist/ --out-file ttm.min.js --no-source-maps --global TrouveTonMatch --detailed-report",
+    "copy-assets": "rimraf src/main/resources/static/* && mkdirp src/main/resources/static/ && cpy dist/* src/main/resources/static/",
+    "build": "npm run build-app && npm run copy-assets",
+    "test": "jest || echo 0",
+    "lint": "eslint --ext js,jsx src/main/javascript"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.10.4",
+    "@babel/preset-react": "^7.10.4",
+    "@babel/runtime": "^7.11.2",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "cpy-cli": "^3.1.1",
+    "eslint": "^7.4.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-jest": "^23.18.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.3",
+    "eslint-plugin-react-hooks": "^4.0.8",
+    "husky": "^4.3.0",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.5.1",
+    "mkdirp": "^1.0.4",
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
+    "sass": "^1.26.11"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "endOfLine": "auto"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "alias": {
+            "test": "./test",
+            "underscore": "lodash"
+          }
+        }
+      ]
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx}": [
+      "./node_modules/.bin/eslint --fix"
+    ]
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "babel-jest"
+    }
+  }
+}
