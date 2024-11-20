@@ -6,9 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import fr.initiativedeuxsevres.ttm.model.Role;
@@ -35,30 +38,32 @@ public class ConfigSpringSecurity {
 
     //Créer un utilisateur en dur pour tester l'accès aux différentes routes de l'application sans avoir besoin de configurer la bdd
     // Ne pas oublier d'ajuster les perm sur les routes pour faire les tests !
-    // @Bean
-    // public InMemoryUserDetailsManager userDetailsManager() {
-    //     return new InMemoryUserDetailsManager(
-    //             User.builder()
-    //                 .username("user")
-    //                 .password(passwordEncoder().encode("pass"))
-    //                 .roles("PARRAIN")
-    //                 .build(),
-    //             User.builder()
-    //                 .username("user")
-    //                 .password(passwordEncoder().encode("pass"))
-    //                 .roles("PORTEUR")
-    //                 .build(),
+     @Bean
+     public InMemoryUserDetailsManager userDetailsManager() {
+         return new InMemoryUserDetailsManager(
+                 User .builder()
+                     .username("user")
+                     .password(passwordEncoder().encode("pass"))
+                     .roles("PARRAIN")
+                     .build(),
+                 User.builder()
+                     .username("user")
+                     .password(passwordEncoder().encode("pass"))
+                     .roles("PORTEUR")
+                     .build()
     //             User.builder()
     //                 .username("admin")
     //                 .password(passwordEncoder().encode("pass"))
     //                 .roles("ADMIN")
     //                 .build()
-    //     );
-    // }
+         );
+     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //configuration des règles de sécurité pour les requêtes http
+        // Configure la page de connexion
+        //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
         return http.authorizeHttpRequests((auth) -> {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
@@ -79,10 +84,12 @@ public class ConfigSpringSecurity {
                             .requestMatchers("/fil%20des%20profils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
                             .requestMatchers("/notifications").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
                             .requestMatchers("/boite%20a%20outils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name());
-
-                }).formLogin(login -> login // Configure la page de connexion
-                        //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
-                        .permitAll()) // Permet à tout le monde d'accéder à la page de connexion
+             // On transforme la fonction lambda
+                    // }).formLogin(login -> login // Configure la page de connexion
+                    //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
+                    //.permitAll()) // Permet à tout le monde d'accéder à la page de connexion
+             // par une méthode de référence :
+                }).formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // Permet à tout le monde d'accéder à la page de connexion
                 .logout(logout -> logout // Configure la déconnexion
                         //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
                         .permitAll()) // Permet à tout le monde de se déconnecter
