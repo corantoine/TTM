@@ -50,14 +50,19 @@ body, html {
   
   .sn-row {
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
+    
+    svg {
+      justify-content: space-between;
+      padding: 10px;
+      width: 5em;
+    
   }
-  
-  .sn-logo {
+}
+
+  /* .sn-logo {
     width: 6em;
     cursor: pointer;
-  }
+  } */
   
   a {
     text-decoration: none;

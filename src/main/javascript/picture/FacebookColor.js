@@ -1,14 +1,17 @@
+import React from "react";
+
+export const FacebookColor = () => (
 <svg xmlns="http://www.w3.org/2000/svg" 
 viewBox = "0 0 512 512"
-width="512"
-height="512">
-<g fill="None" fill-opacity="0.0" stroke="#000000" stroke-opacity="0.00" stroke-width="0.3"><path d="
+
+>
+<g fill="None" fillOpacity="0.0" stroke="#000000" strokeOpacity="0.00" strokeWidth="0.3"><path d="
 M 0.00 53.00 
 C 4.44 27.04 27.11 4.42 53.00 0.00
 L 0.00 0.00
 L 0.00 53.00 Z"/>
 </g>
-<g fill="None" fill-opacity="0.0" stroke="#1975D1" stroke-opacity="1.00" stroke-width="0.3"><path d="
+<g fill="None" fillOpacity="0.0" stroke="#1975D1" strokeOpacity="1.00" strokeWidth="0.3"><path d="
 M 0.00 53.00 
 L 0.00 459.00
 C 4.44 484.96 27.11 507.58 53.00 512.00
@@ -30,13 +33,13 @@ C 507.56 27.04 484.89 4.42 459.00 0.00
 L 53.00 0.00
 C 27.11 4.42 4.44 27.04 0.00 53.00 Z"/>
 </g>
-<g fill="None" fill-opacity="0.0" stroke="#000000" stroke-opacity="0.00" stroke-width="0.3"><path d="
+<g fill="None" fillOpacity="0.0" stroke="#000000" strokeOpacity="0.00" strokeWidth="0.3"><path d="
 M 512.00 53.00 
 L 512.00 0.00
 L 459.00 0.00
 C 484.89 4.42 507.56 27.04 512.00 53.00 Z"/>
 </g>
-<g fill="None" fill-opacity="0.0" stroke="#F9F9F9" stroke-opacity="1.00" stroke-width="0.3"><path d="
+<g fill="None" fillOpacity="0.0" stroke="#F9F9F9" strokeOpacity="1.00" strokeWidth="0.3"><path d="
 M 256.00 512.00 
 L 352.00 512.00
 C 352.00 453.33 352.00 394.67 352.00 336.00
@@ -50,26 +53,26 @@ C 192.00 282.67 192.00 309.33 192.00 336.00
 C 213.33 336.00 234.67 336.00 256.00 336.00
 C 256.00 394.67 256.00 453.33 256.00 512.00 Z"/>
 </g>
-<g fill="None" fill-opacity="0.0" stroke="#000000" stroke-opacity="0.00" stroke-width="0.3"><path d="
+<g fill="None" fillOpacity="0.0" stroke="#000000" strokeOpacity="0.00" strokeWidth="0.3"><path d="
 M 0.00 512.00 
 L 53.00 512.00
 C 27.11 507.58 4.44 484.96 0.00 459.00
 L 0.00 512.00 Z"/>
 </g>
-<g fill="None" fill-opacity="0.0" stroke="#000000" stroke-opacity="0.00" stroke-width="0.3"><path d="
+<g fill="None" fillOpacity="0.0" stroke="#000000" strokeOpacity="0.00" strokeWidth="0.3"><path d="
 M 459.00 512.00 
 L 512.00 512.00
 L 512.00 459.00
 C 507.58 484.89 484.96 507.56 459.00 512.00 Z"/>
 </g>
-<g fill="#000000" fill-opacity="0.00" stroke="None">
+<g fill="#000000" fillOpacity="0.00" stroke="None">
 <path d="
 M 0.00 53.00 
 C 4.44 27.04 27.11 4.42 53.00 0.00
 L 0.00 0.00
 L 0.00 53.00 Z"/>
 </g>
-<g fill="#1975D1" fill-opacity="1.00" stroke="None">
+<g fill="#1975D1" fillOpacity="1.00" stroke="None">
 <path d="
 M 0.00 53.00 
 L 0.00 459.00
@@ -92,14 +95,14 @@ C 507.56 27.04 484.89 4.42 459.00 0.00
 L 53.00 0.00
 C 27.11 4.42 4.44 27.04 0.00 53.00 Z"/>
 </g>
-<g fill="#000000" fill-opacity="0.00" stroke="None">
+<g fill="#000000" fillOpacity="0.00" stroke="None">
 <path d="
 M 512.00 53.00 
 L 512.00 0.00
 L 459.00 0.00
 C 484.89 4.42 507.56 27.04 512.00 53.00 Z"/>
 </g>
-<g fill="#F9F9F9" fill-opacity="1.00" stroke="None">
+<g fill="#F9F9F9" fillOpacity="1.00" stroke="None">
 <path d="
 M 256.00 512.00 
 L 352.00 512.00
@@ -114,14 +117,14 @@ C 192.00 282.67 192.00 309.33 192.00 336.00
 C 213.33 336.00 234.67 336.00 256.00 336.00
 C 256.00 394.67 256.00 453.33 256.00 512.00 Z"/>
 </g>
-<g fill="#000000" fill-opacity="0.00" stroke="None">
+<g fill="#000000" fillOpacity="0.00" stroke="None">
 <path d="
 M 0.00 512.00 
 L 53.00 512.00
 C 27.11 507.58 4.44 484.96 0.00 459.00
 L 0.00 512.00 Z"/>
 </g>
-<g fill="#000000" fill-opacity="0.00" stroke="None">
+<g fill="#000000" fillOpacity="0.00" stroke="None">
 <path d="
 M 459.00 512.00 
 L 512.00 512.00
@@ -129,3 +132,4 @@ L 512.00 459.00
 C 507.58 484.89 484.96 507.56 459.00 512.00 Z"/>
 </g>
 </svg>
+);

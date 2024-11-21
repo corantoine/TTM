@@ -1,24 +1,16 @@
-import React from "react";
-import "../styles/footer.css";
-import logoFooter from "../picture/LogoFooterTTM.svg";
-import facebook from "../picture/facebookColor.svg";
-import linkedin from "../picture/linkedin.svg";
-import tiktok from "../picture/tiktok.svg";
-import instagram from "../picture/insta-logo.svg";
-import instaColor from "../picture/instaColor.svg";
-import facebookColor from "../picture/facebookColor.svg";
-import tiktokColor from "../picture/tiktokColor.svg";
-import linkedinColor from "../picture/LinkedInColor.svg";
+import React from 'react'
+import '../styles/footer.css'
+import {LogoFooterTTM} from '../picture/LogoFooterTTM'
+import {InstaColor} from '../picture/InstaColor'
+import { FacebookColor } from '../picture/FacebookColor'
+import { TiktokColor } from '../picture/TiktokColor'
+import { LinkedInColor } from '../picture/LinkedInColor'
 
 function Footer() {
   return (
     <div>
       <footer className="footer">
-        <img
-          src={logoFooter}
-          className="logo-ttm-footer"
-          alt="logo footer ttm"
-        />
+        <LogoFooterTTM/>
         <div className="footer-info">
           <div className="footer-info-left">
             <a
@@ -39,35 +31,28 @@ function Footer() {
         </div>
         <div className="social-network">
           <div className="sn-row">
-            {/* <img src={instagram} className='sn-logo' alt='logo instagram'/>   */}
             <a
               href="https://www.instagram.com/initiative_deux_sevres"
               target="blank"
               rel="noopener noreferrer"
             >
-              <img src={instaColor} className="sn-logo" alt="logo instagram" />
+              <InstaColor/>
             </a>
-            {/* <img src={tiktok} className='sn-logo' alt='logo tiktok'/>   */}
             <a
               href="https://www.tiktok.com/@initiative.deux.s"
               target="blank"
               rel="noopener noreferrer"
             >
-              <img src={tiktokColor} className="sn-logo" alt="logo tiktok" />
+              <TiktokColor />
             </a>
           </div>
           <div className="sn-row">
-            {/* <img src={facebook} className='sn-logo' alt='logo facebook'/>   */}
             <a
               href="https://www.facebook.com/people/Initiative-Deux-S%C3%A8vres/61556616180678/"
               target="blank"
               rel="noopener noreferrer"
             >
-              <img
-                src={facebookColor}
-                className="sn-logo"
-                alt="logo facebook"
-              />
+              <FacebookColor />
             </a>
             {/* <img src={linkedin} className='sn-logo' alt='logo linkedin'/>   */}
             <a
@@ -75,17 +60,13 @@ function Footer() {
               target="blank"
               rel="noopener noreferrer"
             >
-              <img
-                src={linkedinColor}
-                className="sn-logo"
-                alt="logo linkedin"
-              />
+              <LinkedInColor />
             </a>
           </div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
 
-export default Footer;
+export default Footer
