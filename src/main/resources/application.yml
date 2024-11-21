@@ -1,4 +1,7 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   application:
     name: Trouve Ton Match
   datasource:
@@ -17,3 +20,6 @@ spring:
       path: /api-docs
     swagger-ui:
       path: /docs
+
+server:
+  port: 8080
