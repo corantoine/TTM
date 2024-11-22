@@ -5,12 +5,17 @@
 
 .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative; /* Permettre le positionnement absolu des enfants */
     font-family: sans-serif;
     height: 10.5rem;
     padding: 0.5rem;
     border-bottom: 1px solid rgb(229, 25, 100);
+
+    svg{
+        height: 6em;
+    }
 }
 
 .header-title-container {
@@ -29,12 +34,18 @@
   
 .nav-items {
     list-style: none;
+
+    .li-nav{
+        svg{
+            width: 4em;
+            height: auto;
+            cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
+        }
+    }
 }
   
 .login-logo {
-        width: 12em;
-        height: auto;
-        cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
+
 }
 
 .logo-initiative{
