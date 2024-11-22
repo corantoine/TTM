@@ -80,11 +80,10 @@ public class ConfigSpringSecurity {
                      }).formLogin(login -> login
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)// Configure la page de connexion
-                    //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
                     .permitAll()) // Permet à tout le monde d'accéder à la page de connexion
                     // par une méthode de référence :
 //                }).formLogin(AbstractAuthenticationFilterConfigurer::permitAll). // Permet à tout le monde d'accéder à la page de connexion
-                .logout(logout -> logout // Configure la déconnexion
+                .logout(logout -> logout// Configure la déconnexion
                         //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
                         .permitAll()) // Permet à tout le monde de se déconnecter
                 .build();

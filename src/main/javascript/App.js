@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import Layout from "./components/Layout";
 import React from 'react';
 import Login from "./components/Login";
+import Match from "./components/Match";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
           <Route element={<Layout />}>
           <Route path = "/" element={<Home/>}/>
           <Route path = "/login" element={<Login/>}/>
+          <Route path = "/matchs" element={<Match/>}/>
+
           </Route>
         </Routes>
       </BrowserRouter>
