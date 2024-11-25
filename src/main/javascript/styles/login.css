@@ -1,19 +1,116 @@
-div.login {
-margin: 0;
-padding: 0;
-font-family: sans-serif;
+.login {
+  margin: 10px 0px;
+  padding: 0;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    h2{
-        padding: 0.5em;
+  h2 {
+    margin: 0.75em 0em 0.5em;
+  }
+
+  .login-page-title-and-text {
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+    max-width: 34%;
+    p {
+      font-style: italic;
+      color: rgba(0, 0, 0, 0.829);
     }
-    
+  }
+
+  div.login-card {
+    align-items: center;
+    padding: 1em;
+    zoom: 120%;
+  }
 }
 
+form.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid rgb(229, 25, 100);
+  border-radius: 15px;
+  padding: 1em 1.5em;
+  margin: 1em;
+  height: 19em;
 
-.login-page-title-and-text {
-display: flex;
-flex-direction: column;
-align-items: center;
-text-align: center;
+  p {
+    /* margin: 1em; */
+    font-weight: bold;
+    font-size: 0.75em;
+    cursor: pointer;
+  }
+
+  .login-input {
+    margin: 10px;
+    border: none;
+    border-bottom: 1px solid rgb(229, 25, 100);
+    width: 20em;
+    height: 1.5em;
+  }
+
+  .login-input:focus {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(229, 25, 100);
+    zoom: 105%;
+  }
+
+  .login-input:focus::placeholder {
+    color: rgb(175, 175, 175);
+    font-style: italic;
+  }
+
+  h4 {
+    padding: 0.5em;
+  }
+
+  #login-button {
+    padding: 12px 33px;
+    margin: 1em 0.5em;
+    border-radius: 25px;
+    color: white;
+    font-weight: bold;
+    background-color: rgb(229, 25, 100);
+    border: none;
+    cursor: pointer;
+  }
+
+  #login-button:hover {
+    zoom: 101%;
+    background-color: rgba(229, 25, 100, 0.952);
+  }
 }
 
+/********** Media **********/
+@media (max-width: 768px) {
+  .login-page-title-and-text {
+    font-size: 0.85em;
+    min-width: 66%;
+
+    p{
+        margin: 0 1.5em;
+    }
+    h2{
+        margin-bottom: 1em;
+    }
+
+  }
+
+  div.login-card {
+    max-width: 100%;
+
+    .login-input {
+            margin: 10px;
+            border: none;
+            border-bottom: 1px solid rgb(229, 25, 100);
+            max-width: 100%;
+            height: 1.5em;
+          }
+  }
+}
