@@ -9,18 +9,14 @@ const Login = () => {
   return (
     <div className='login'>
         <div className='login-page-title-and-text'>
-      <h2 >Page de connexion</h2>
+      <h2>Page de connexion</h2>
       <p>
-        Afin de pouvoir vous connecter, vous devez avoir validé votre
-        inscription au site <br />
-        grâce au lien contenu dans le mail que vous recevrez à la suite de votre
-        <br />
-        validation lors de votre passage en commission.
+        Afin de pouvoir vous connecter, vous devez avoir validé votre inscription au site grâce au lien contenu dans le mail que vous recevrez à la suite de votre validation lors de votre passage en commission.
       </p>
       </div>
       <div className="login-card">
         <form onSubmit={handleSubmit} className="login-form">
-          <h3 className="login-title">Connexion</h3>
+          <h4 className="login-title">Connexion</h4>
           <input
           name='email'
           className='login-input'
@@ -36,7 +32,7 @@ const Login = () => {
           type='submit'>
             Se connecter
           </button>
-          Mot de passe oublié ?       
+          <p>Mot de passe oublié ?</p>       
         </form>
       </div>
     </div>

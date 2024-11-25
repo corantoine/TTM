@@ -74,3 +74,22 @@ body, html {
   a:visited{
     color: rgb(229, 25, 100);
   }
+
+  /********** Media **********/
+@media (max-width: 768px) {
+  .footer-info{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer{
+    svg{
+      display: none;
+    }
+  }
+
+}
