@@ -1,7 +1,8 @@
 # Trouve Ton Match (TTM)
 
 Lien maquettes :  
-[Maquette TTM](https://www.figma.com/design/gmrlGQPkLmmYlhs4rue3Q9/TTM?node-id=0-1&node-type=canvas&t=5FlJVxMaupLEhzWl-0)
+- [Maquette page d'accueil et login TTM](https://www.figma.com/design/gmrlGQPkLmmYlhs4rue3Q9/TTM?node-id=0-1&node-type=canvas&t=5FlJVxMaupLEhzWl-0)  
+_Version mobile à faire._
 
 ## Description
 TTM est une application développée pour l'association Réseau Initiative.
