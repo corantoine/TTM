@@ -1,90 +1,88 @@
-*{
-    margin: 0;
-    padding: 0;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative; /* Permettre le positionnement absolu des enfants */
-    font-family: sans-serif;
-    height: 10.5rem;
-    padding: 0.5rem;
-    border-bottom: 1px solid rgb(229, 25, 100);
+.logo-and-text-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative; /* Permettre le positionnement absolu des enfants */
+  font-family: sans-serif;
+  height: 10.5rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgb(229, 25, 100);
 
-    svg{
-        height: 6em;
-    }
+  svg {
+    height: 6em;
+  }
 }
 
 .header-title-container {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    text-align: center;
-}
-  
-.header-title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+
+  h1.header-title {
     font-weight: bolder;
     font-size: 2.3rem;
     color: #2e404f;
     margin: 0;
-}
-  
-.nav-items {
-    list-style: none;
-
-    .li-nav{
-        svg{
-            width: 4em;
-            height: auto;
-            cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
-        }
-    }
-}
-  
-.login-logo {
-
+  }
 }
 
-.logo-initiative{
-        cursor: pointer;
-}
+ul {
+  list-style: none;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 20px;
+  color: #fff;
 
-      
-/********** Media **********/
-@media (min-width: 768px) {   
-    .header {
-        justify-content: space-between; /* Garder les autres éléments espacés */
-    }
-    
-    .header-title-container {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        text-align: center;
-    }
-      
-    .header-title {
-        font-weight: bolder;
-        font-size: 2.3rem;
-        color: #2e404f;
-        margin: 0;
-    }
-      
-    .nav-items {
-        list-style: none;
-    }
-      
-    .login-logo {
-            width: 12em;
-            height: auto;
-            cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
-    }
-    
-    .logo-initiative{
-            cursor: pointer;
+  .li-nav {
+    svg {
+      width: 4em;
+      height: auto;
+      cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
     }
   }
-    
+}
+
+/********** Media **********/
+/* Pour gérer le header lors de tailles intermédiaires */
+@media (max-width: 990px) {
+  h1.header-title {
+    font-size: 1.8em;
+  }
+
+  .logo-and-text-container {
+    svg {
+      height: 5em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  h1.header-title {
+    display: none;
+  }
+
+  .logo-and-text-container {
+    svg {
+      height: 4em;
+    }
+  }
+
+  div .logo-and-text-container {
+    height: 8em;
+  }
+
+  .li-nav {
+    svg {
+      display: none;
+    }
+  }
+}
