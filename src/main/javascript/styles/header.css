@@ -49,6 +49,12 @@ ul {
       cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
     }
   }
+
+  @media (min-width: 768px) {
+    .burger-menu {
+      display: none;
+    }
+  }
 }
 
 /********** Media **********/
@@ -93,6 +99,14 @@ ul {
   .li-nav {
     svg {
       display: none;
+    }
+  }
+
+  .burger-menu {
+    display: block;
+    cursor: pointer;
+    svg {
+        color: rgb(229, 25, 100);
     }
   }
 }

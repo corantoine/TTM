@@ -3,50 +3,38 @@ import '../styles/header.css'
 import { LogoReseauInit2 } from '../picture/LogoReseauInit2'
 import { LoginLogo } from '../picture/LoginLogo'
 import { Link, useNavigate } from 'react-router-dom'
+import { BurgerMenu } from '../picture/BurgerMenu'
 
 export default function Header() {
   // Utilisation d'un state pour gérer l'état du menu burger
 
-  const [showLinks, setShowLinks] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const navigate = useNavigate()
 
-  const handleShowLinks = () => {
-    setShowLinks(!showLinks)
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen)
   }
 
   return (
-    // <header className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
-    //   <div className='header'>
-    //   <LogoReseauInit2 />
-    //   <div className="header-title-container">
-    //     <h1 className="header-title">Bienvenue sur TTM !</h1>
-    //   </div>
-    //   <ul className="nav-items">
-    //     <li className="li-nav">
-    //       <LoginLogo />
-    //       <div id="icons"></div>
-    //     </li>
-    //   </ul>
-    //   </div>
-    // </header>
-
-    <header className={`navbar ${showLinks ? 'show-nav' : 'hide-nav'}`}>
-      {' '}
-      {/* ternaire pour ajouter afficher ou cacher la navbar en fonction de l'état de showLinks */}
+    <header className="header">
       <div className="logo-and-text-container">
         <Link to="/">
           <LogoReseauInit2 />
-        </Link>{' '}
-        <div className="header-title-container">
-          <h1 className="header-title">Bienvenue sur TTM !</h1>{' '}
-        </div>
-        <ul className="navbar-links">
-          <li className="li-nav">
-            <Link to="/login">
-              <LoginLogo />
-            </Link>
-          </li>
-        </ul>
+        </Link>
+        {/* className par défault = nav, si menuOpen est true, la className est nav open */}
+        <nav className={`nav ${menuOpen ? 'open' : ''}`}>
+          <div className="header-title-container">
+            <h1 className="header-title">Bienvenue sur TTM !</h1>{' '}
+          </div>
+          <ul className="nav-items">
+            <li className="li-nav">
+              <Link to="/login">
+                <LoginLogo />
+              </Link>
+            </li>
+          <li className='burger-menu'><BurgerMenu/></li>
+          </ul>
+        </nav>
       </div>
     </header>
   )
