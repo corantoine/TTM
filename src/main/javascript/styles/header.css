@@ -106,7 +106,25 @@ ul {
     display: block;
     cursor: pointer;
     svg {
-        color: rgb(229, 25, 100);
+      color: rgb(229, 25, 100);
     }
+  }
+
+  ul {
+    justify-content: flex-end;
+
+    .nav-items {
+      display: flex;
+    }
+  }
+
+  .nav.open {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    position: relative;
+    border-radius: 15px;
+    width: 15em;
+    border: 1px solid rgb(229, 25, 100);
   }
 }
