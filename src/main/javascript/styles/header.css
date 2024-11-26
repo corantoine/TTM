@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-.logo-and-text-container {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,18 +18,15 @@
   }
 }
 
-.header-title-container {
+h1.header-title {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
-
-  h1.header-title {
-    font-weight: bolder;
-    font-size: 2.3rem;
-    color: #2e404f;
-    margin: 0;
-  }
+  /* text-align: center; */
+  /* font-weight: bolder; */
+  font-size: 2.3rem;
+  color: #2e404f;
+  /* margin: 0; */
 }
 
 ul {
@@ -42,7 +39,7 @@ ul {
   gap: 20px;
   color: #fff;
 
-  .li-nav {
+  .login-logo {
     svg {
       width: 4em;
       height: auto;
@@ -55,20 +52,17 @@ ul {
       display: none;
     }
   }
+
+  li {
+    display: none;
+  }
 }
 
 /********** Media **********/
 /* Pour gérer le header lors de tailles intermédiaires */
 @media (max-width: 990px) {
-  .header-title-container {
-    h1.header-title {
-      font-size: 1.8em;
-    }
-  }
-  .logo-and-text-container {
-    svg {
-      height: 4.5em;
-    }
+  h1.header-title {
+    font-size: 1.8em;
   }
 
   ul {
@@ -86,21 +80,15 @@ ul {
     display: none;
   }
 
-  .logo-and-text-container {
-    svg {
-      height: 4.5em;
-    }
+  .login-logo {
+    display: none;
   }
 
-  div .logo-and-text-container {
-    height: 8em;
+ .header{
+  svg{
+    height: 5em;
   }
-
-  .li-nav {
-    svg {
-      display: none;
-    }
-  }
+}
 
   .burger-menu {
     display: block;
@@ -110,21 +98,162 @@ ul {
     }
   }
 
-  ul {
-    justify-content: flex-end;
 
-    .nav-items {
-      display: flex;
-    }
-  }
 
   .nav.open {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     background-color: white;
-    position: relative;
+    /* position: relative; */
     border-radius: 15px;
-    width: 15em;
+    width: auto;
     border: 1px solid rgb(229, 25, 100);
+
+ul.nav-items{
+  display: flex;
+  flex-direction: column-reverse;
+  width: 10em;
+}
+
+    ul {
+      li {
+        display: flex;
+        color: rgb(229, 25, 100);
+      }
+    }
   }
 }
+
+/* 
+
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .logo-and-text-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative; 
+    font-family: sans-serif;
+    height: 10.5rem;
+    padding: 0.5rem;
+    border-bottom: 1px solid rgb(229, 25, 100);
+  
+    svg {
+      height: 6em;
+    }
+  }
+  
+  .header-title-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+  
+    h1.header-title {
+      font-weight: bolder;
+      font-size: 2.3rem;
+      color: #2e404f;
+      margin: 0;
+    }
+  }
+  
+  ul {
+    list-style: none;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+    color: #fff;
+  
+    .li-nav {
+      svg {
+        width: 4em;
+        height: auto;
+        cursor: pointer;
+      }
+    }
+  
+    @media (min-width: 768px) {
+      .burger-menu {
+        display: none;
+      }
+    }
+  } */
+
+/********** Media **********/
+/* Pour gérer le header lors de tailles intermédiaires */
+/* @media (max-width: 990px) {
+    .header-title-container {
+      h1.header-title {
+        font-size: 1.8em;
+      }
+    }
+    .logo-and-text-container {
+      svg {
+        height: 4.5em;
+      }
+    }
+  
+    ul {
+      .li-nav {
+        svg {
+          width: 3em;
+          height: auto;
+        }
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    h1.header-title {
+      display: none;
+    }
+  
+    .logo-and-text-container {
+      svg {
+        height: 4.5em;
+      }
+    }
+  
+    div .logo-and-text-container {
+      height: 8em;
+    }
+  
+    .li-nav {
+      svg {
+        display: none;
+      }
+    }
+  
+    .burger-menu {
+      display: block;
+      cursor: pointer;
+      svg {
+        color: rgb(229, 25, 100);
+      }
+    }
+  
+    ul {
+      justify-content: flex-end;
+  
+      .nav-items {
+        display: flex;
+      }
+    }
+  
+    .nav.open {
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      position: relative;
+      border-radius: 15px;
+      width: 15em;
+      border: 1px solid rgb(229, 25, 100);
+    }
+  }
+   */
