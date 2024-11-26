@@ -50,7 +50,7 @@
   font-weight: bold;
   background-color: rgb(229, 25, 100);
   border: none;
-  /* max-width: 25%; */
+  cursor:pointer;
 }
 
 /********** Media **********/
