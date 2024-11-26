@@ -32,7 +32,7 @@ export default function Header() {
                 <LoginLogo />
               </Link>
             </li>
-          <li className='burger-menu'><BurgerMenu/></li>
+          <li className='burger-menu' onClick={toggleMenu}><BurgerMenu/></li>
           </ul>
         </nav>
       </div>
