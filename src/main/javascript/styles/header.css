@@ -86,6 +86,7 @@ ul {
   }
 
   .header {
+    position: relative;
     svg {
       height: 5em;
     }
@@ -99,11 +100,12 @@ ul {
 
   .burger-menu {
     cursor: pointer;
-    position: fixed;
     right: 0px; 
     z-index: 1;
     svg {
       color: rgb(229, 25, 100);
+      gap: 10px;
+      height: 4em;
     }
   }
 
@@ -115,14 +117,25 @@ ul {
     background-color: white;
     border-radius: 15px;
     width: auto;
+    padding: 15px;
+    /* svg{
+      display: none;
+    } */
+
     
     ul.nav-items {
       display: flex;
       flex-direction: column;
       position: absolute;
       width: auto;
-      right: 10px;
-      top: 10px;
+      /* right: -15px; */
+      top: 100px;
+      /* row-gap: 10px; */
+      background-color: white;
+      border: 1px solid red;
+      border-radius: 1px 1px 15px 15px;
+      padding: 10px 15px;
+      border-top: none;
     }
 
     ul {
