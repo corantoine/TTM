@@ -15,7 +15,12 @@
   svg {
     height: 6em;
   }
+
+  
 }
+/* .burger-menu, .close-menu{
+  display: none;
+} */
 
 h1.header-title {
   position: absolute;
@@ -42,17 +47,17 @@ ul {
     }
   }
 
-  @media (min-width: 768px) {
-    .nav .burger-menu {
-      display: none;
-    }
-  }
-
+  
   li {
     display: none;
   }
 }
 
+@media (min-width: 768px) {
+  .burger-menu, .close-menu {
+    display: none;
+  }
+}
 /********** Media **********/
 /* Pour gérer le header lors de tailles intermédiaires */
 @media (max-width: 990px) {
