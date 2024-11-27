@@ -68,9 +68,9 @@ export default function Header() {
           <li>
             <Link to="/login">Connexion</Link>
           </li>
-          <li>TEST</li>
-          <li>TEST</li>
-          <li>TEST</li>
+          <li>A</li>
+          <li>A</li>
+          <li>A</li>
           <div className="login-logo">
             <Link to="/login">
               <LoginLogo />
