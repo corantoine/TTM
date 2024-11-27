@@ -51,7 +51,6 @@ export default function Header() {
   // Utilisation d'un state pour gérer l'état du menu burger
 
   const [menuOpen, setMenuOpen] = useState(false)
-  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
@@ -65,10 +64,10 @@ export default function Header() {
       <nav className={`nav ${menuOpen ? 'open' : ''}`}>
         <h1 className="header-title">Bienvenue sur TTM !</h1>{' '}
         <ul className="nav-items">
+          <li>Accueil</li>
           <li>
             <Link to="/login">Connexion</Link>
           </li>
-          <li>Accueil</li>
           <li>TEST</li>
           <li>TEST</li>
           <li>TEST</li>
@@ -77,10 +76,10 @@ export default function Header() {
               <LoginLogo />
             </Link>
           </div>
+        </ul>
           <div className="burger-menu" onClick={toggleMenu}>
             <BurgerMenu />
           </div>
-        </ul>
       </nav>
     </header>
   )
