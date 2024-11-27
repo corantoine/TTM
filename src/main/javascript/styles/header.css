@@ -7,7 +7,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative; /* Permettre le positionnement absolu des enfants */
   font-family: sans-serif;
   height: 10.5rem;
   padding: 0.5rem;
@@ -21,12 +20,9 @@
 h1.header-title {
   position: absolute;
   left: 50%;
-  transform: translateX(-50%);
-  /* text-align: center; */
-  /* font-weight: bolder; */
+  transform: translateX(-50%) translateY(10px);
   font-size: 2.3rem;
   color: #2e404f;
-  /* margin: 0; */
 }
 
 ul {
@@ -37,18 +33,17 @@ ul {
   align-items: center;
   flex-direction: row;
   gap: 20px;
-  color: #fff;
 
   .login-logo {
     svg {
       width: 4em;
       height: auto;
-      cursor: pointer; /* Ajoutez un curseur pour indiquer qu'il est cliquable */
+      cursor: pointer;
     }
   }
 
   @media (min-width: 768px) {
-    .burger-menu {
+    .nav .burger-menu {
       display: none;
     }
   }
@@ -80,19 +75,33 @@ ul {
     display: none;
   }
 
+  .nav {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .login-logo {
     display: none;
   }
 
- .header{
-  svg{
-    height: 5em;
+  .header {
+    svg {
+      height: 5em;
+    }
   }
+
+.open-burger{
+  border: 1px solid rgb(229, 25, 100);
+  display: flex;
+  flex-direction: column;
 }
 
   .burger-menu {
-    display: block;
     cursor: pointer;
+    position: fixed;
+    right: 0px; 
+    z-index: 1;
     svg {
       color: rgb(229, 25, 100);
     }
@@ -100,20 +109,21 @@ ul {
 
 
 
+  
   .nav.open {
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
     background-color: white;
-    /* position: relative; */
     border-radius: 15px;
     width: auto;
-    border: 1px solid rgb(229, 25, 100);
-
-ul.nav-items{
-  display: flex;
-  flex-direction: column-reverse;
-  width: 10em;
-}
+    
+    ul.nav-items {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      width: auto;
+      right: 10px;
+      top: 10px;
+    }
 
     ul {
       li {
