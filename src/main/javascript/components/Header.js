@@ -80,6 +80,8 @@ export default function Header() {
           <div className="burger-menu" onClick={toggleMenu}>
             <BurgerMenu />
           </div>
+          <div className="close-menu" onClick={toggleMenu}>
+          X</div>
       </nav>
     </header>
   )

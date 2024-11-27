@@ -80,6 +80,9 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    .close-menu{
+      display: none;
+    }
   }
   .login-logo {
     display: none;
@@ -118,9 +121,17 @@ ul {
     border-radius: 15px;
     width: auto;
     padding: 15px;
-    /* svg{
+    .burger-menu{
       display: none;
-    } */
+    }
+    .close-menu{
+      position: relative;
+      display: flex;
+      color: rgb(229, 25, 100);
+      font-size: 50px;
+      font-family: sans-serif;
+      right: 20px;
+    }
 
     
     ul.nav-items {
@@ -128,8 +139,8 @@ ul {
       flex-direction: column;
       position: absolute;
       width: auto;
-      /* right: -15px; */
-      top: 100px;
+      right: 0px;
+      top: 85px;
       /* row-gap: 10px; */
       background-color: white;
       border: 1px solid red;
