@@ -1,7 +1,7 @@
 import React from 'react'
 import '../styles/footer.css'
-import {LogoFooterTTM} from '../picture/LogoFooterTTM'
-import {InstaColor} from '../picture/InstaColor'
+import { LogoFooterTTM } from '../picture/LogoFooterTTM'
+import { InstaColor } from '../picture/InstaColor'
 import { FacebookColor } from '../picture/FacebookColor'
 import { TiktokColor } from '../picture/TiktokColor'
 import { LinkedInColor } from '../picture/LinkedInColor'
@@ -10,7 +10,7 @@ function Footer() {
   return (
     <div>
       <footer className="footer">
-        <LogoFooterTTM/>
+        <LogoFooterTTM />
         <div className="footer-info">
           <div className="footer-info-left">
             <a
@@ -36,7 +36,7 @@ function Footer() {
               target="blank"
               rel="noopener noreferrer"
             >
-              <InstaColor/>
+              <InstaColor />
             </a>
             <a
               href="https://www.tiktok.com/@initiative.deux.s"
@@ -54,7 +54,6 @@ function Footer() {
             >
               <FacebookColor />
             </a>
-            {/* <img src={linkedin} className='sn-logo' alt='logo linkedin'/>   */}
             <a
               href="https://www.linkedin.com/company/initiative-deux-sevres"
               target="blank"

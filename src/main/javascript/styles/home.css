@@ -33,7 +33,7 @@
   border: 1px solid rgb(229, 25, 100);
   padding: 20px;
   border-radius: 15px;
-  max-width: 55%; /* Utilisation de pourcentages pour la largeur */
+  max-width: 55%; 
   margin: 20px auto;
   text-align: center;
   font-family: sans-serif;
@@ -65,8 +65,8 @@
 
 @media (min-width: 990px) {
   .texte_accueil {
-    max-width: 40%; /* Ajustement de la largeur pour les écrans plus grands */
-    font-size: 1.25rem; /*Ajustement de la taille de la police */
+    max-width: 40%; 
+    font-size: 1.25rem; 
     margin: 10px;
   }
 
