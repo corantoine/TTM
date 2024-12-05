@@ -19,4 +19,7 @@ public class UserEntity {
     String prenom;
     String plateformeInitiative;
     Role role;
+
+    public UserEntity() {
+    }
 }
