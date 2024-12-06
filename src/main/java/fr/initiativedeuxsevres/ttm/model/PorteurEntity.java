@@ -12,13 +12,14 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "porteurs")
 public class PorteurEntity extends UserEntity {
-    private String entreprise;
-    private String plateformeInitiative;
-    private String dateLancement;
-    private String domaineActivite;
-    private String description;
-    private String besoinsPotentiels;
-    private String lieuActivite;
-    private String disponibilites;
+    public String entreprise;
+    public String dateLancement;
+    public String domaineActivite;
+    public String description;
+    public String besoinsPotentiels;
+    public String lieuActivite;
+    public String disponibilites;
+
+
 
 }

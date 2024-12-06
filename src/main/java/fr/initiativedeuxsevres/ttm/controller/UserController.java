@@ -23,7 +23,7 @@ public class UserController {
 
     @PostMapping("/porteur")
     public PorteurEntity createPorteur(@RequestBody PorteurEntity porteur) {
-        return PorteurService.createPorteur(porteur);
+        return porteurService.createPorteur(porteur);
     }
 
     @PostMapping("/parrain")
