@@ -11,8 +11,12 @@ import fr.initiativedeuxsevres.ttm.repository.PorteurRepository;
  */
 @Service
 public class PorteurService {
-    @Autowired
-    private static PorteurRepository porteurRepository;
+//    @Autowired
+    private final PorteurRepository porteurRepository;
+
+    public PorteurService(PorteurRepository porteurRepository) {
+        this.porteurRepository = porteurRepository;
+    }
 
     /**
      * Crée un nouveau porteur.
@@ -20,9 +24,8 @@ public class PorteurService {
      * @param porteur l'entité porteur à créer
      * @return le porteur créé
      */
-    public static PorteurEntity createPorteur(PorteurEntity porteur) {
+    public PorteurEntity createPorteur(PorteurEntity porteur) {
         return porteurRepository.save(porteur);
     }
 
-    // Autres méthodes spécifiques aux porteurs
 }
