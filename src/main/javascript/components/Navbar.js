@@ -23,6 +23,9 @@ const Navbar = () => {
         <li>
           <Link to="/login">Connexion</Link>
         </li>
+        <li>
+          <Link to ="/register">Creer user</Link>
+        </li>
         <div className="login-logo">
           <Link to="/login">
             <LoginLogo />
