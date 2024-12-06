@@ -13,8 +13,8 @@ import fr.initiativedeuxsevres.ttm.model.UserEntity;
 import fr.initiativedeuxsevres.ttm.repository.ParrainRepository;
 import fr.initiativedeuxsevres.ttm.repository.PorteurRepository;
 
-@Service
-public class UserService {
+//@Service
+//public class UserService {
 
 
 
@@ -55,7 +55,7 @@ public class UserService {
 ////        String erreurMessage = String.format("L'utilisateur %d n'existe pas", userId);
 ////        throw new NoSuchElementException(erreurMessage);
 ////    }
-}
+//}
 
 
 

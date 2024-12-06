@@ -7,6 +7,9 @@
 //
 //import fr.initiativedeuxsevres.ttm.model.UserEntity;
 //
+
+//TODO : Classe commentée pour le moment, au cas où j'en ai besoin plus tard quand même.
+
 //@Repository
 //public interface UserRepository extends JpaRepository <UserEntity, Long> {
 //    Optional<UserEntity> findByUsername(String username);

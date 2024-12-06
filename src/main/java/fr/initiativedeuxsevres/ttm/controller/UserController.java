@@ -7,7 +7,10 @@ import fr.initiativedeuxsevres.ttm.model.ParrainEntity;
 import fr.initiativedeuxsevres.ttm.model.PorteurEntity;
 import fr.initiativedeuxsevres.ttm.service.ParrainService;
 import fr.initiativedeuxsevres.ttm.service.PorteurService;
-import fr.initiativedeuxsevres.ttm.service.UserService;
+
+/**
+ * Controller générique pour la gestion des parrains et des porteurs.
+ **/
 
 @RestController
 @RequestMapping("/users")
