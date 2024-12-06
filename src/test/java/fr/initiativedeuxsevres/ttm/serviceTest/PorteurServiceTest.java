@@ -1,12 +1,8 @@
 package fr.initiativedeuxsevres.ttm.serviceTest;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -51,7 +47,6 @@ public class PorteurServiceTest {
                 .disponibilites("Disponibilités")
                 .build();
         when(porteurRepository.save(porteur)).thenReturn(porteur);
-//        when(porteurRepository.save(any(PorteurEntity.class))).thenReturn(porteur);
 
         PorteurEntity result = porteurService.createPorteur(porteur);
 
