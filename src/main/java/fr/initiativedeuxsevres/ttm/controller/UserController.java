@@ -28,6 +28,6 @@ public class UserController {
 
     @PostMapping("/parrain")
     public ParrainEntity createParrain(@RequestBody ParrainEntity parrain) {
-        return ParrainService.createParrain(parrain);
+        return parrainService.createParrain(parrain);
     }
 }

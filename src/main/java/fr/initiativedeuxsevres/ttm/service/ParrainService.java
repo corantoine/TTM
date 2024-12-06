@@ -12,7 +12,7 @@ import fr.initiativedeuxsevres.ttm.repository.ParrainRepository;
 @Service
 public class ParrainService {
     @Autowired
-    private static ParrainRepository parrainRepository;
+    private ParrainRepository parrainRepository;
 
     /**
      * Crée un nouveau parrain.
@@ -20,7 +20,7 @@ public class ParrainService {
      * @param parrain l'entité parrain à créer
      * @return le parrain créé
      */
-    public static ParrainEntity createParrain(ParrainEntity parrain) {
+    public  ParrainEntity createParrain(ParrainEntity parrain) {
         return parrainRepository.save(parrain);
     }
 
