@@ -59,7 +59,7 @@ public class ConfigSpringSecurity {
         return http.authorizeHttpRequests((auth) -> {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
-                            .requestMatchers("/", "/register/**").permitAll()
+                            .requestMatchers("/", "/register").permitAll()
                             .requestMatchers("/css/**", "/favicon.ico").permitAll()
                             .requestMatchers("/picture/**").permitAll()
                             // Autoriser uniquement les ADMIN a acceder à ces pages

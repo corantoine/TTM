@@ -17,9 +17,11 @@ public class UserEntity {
     @Id
     @GeneratedValue
     Long id;
-    String username;
     String nom;
     String prenom;
+    String username;
+    String password;
+    String email;
     String plateformeInitiative;
     Role role;
 
