@@ -21,5 +21,13 @@ spring:
     swagger-ui:
       path: /docs
 
+debug:
+  true
 server:
   port: 8080
+
+logging:
+  level:
+    org:
+      springframework:
+        DEBUG

@@ -20,7 +20,7 @@ export async function CreateUser( nom, prenom, username, password, email, platef
             password: password,
             email: email,
             plateformeInitiative: plateforme,
-            role:role
+            role: role
         })
     }
     // gestion d'erreur try...catch

@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -56,10 +57,11 @@ public class ConfigSpringSecurity {
         //configuration des règles de sécurité pour les requêtes http
         // Configure la page de connexion
         //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
-        return http.authorizeHttpRequests((auth) -> {
+        return http.csrf(AbstractHttpConfigurer::disable)
+        .authorizeHttpRequests((auth) -> {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
-                            .requestMatchers("/", "/register").permitAll()
+                            .requestMatchers( "/", "/register").permitAll()
                             .requestMatchers("/css/**", "/favicon.ico").permitAll()
                             .requestMatchers("/picture/**").permitAll()
                             // Autoriser uniquement les ADMIN a acceder à ces pages
@@ -88,6 +90,7 @@ public class ConfigSpringSecurity {
                         .permitAll()) // Permet à tout le monde de se déconnecter
                 .build();
     }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
