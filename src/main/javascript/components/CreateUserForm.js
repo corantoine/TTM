@@ -1,10 +1,8 @@
 import React from 'react'
 import { CreateUser } from '../service/CreateUser'
-import { useNavigate } from 'react-router-dom'
+import '../styles/createUserForm.css'
 
 const CreateUserForm = () => {
-  const navigate = useNavigate()
-
   const handleSubmitRegister = async (e) => {
     e.preventDefault()
 
@@ -32,7 +30,6 @@ const CreateUserForm = () => {
           plateforme,
           role
         )
-        // navigate('/')
       }
     } catch (error) {
       console.error(error.message)
@@ -42,7 +39,7 @@ const CreateUserForm = () => {
   return (
     <div className="main-container">
       <div className="createUserForm-container">
-        <h2>Créer un compte</h2>
+        <h2 className="register-title">Créer un compte</h2>
         <form className="form-mini-container" onSubmit={handleSubmitRegister}>
           <div>
             <label htmlFor="nom">Nom :</label>
@@ -60,12 +57,25 @@ const CreateUserForm = () => {
             <label htmlFor="plateforme">Plateforme initiative :</label>
             <input type="text" id="plateforme" name="plateforme" />
           </div>
-          <div>
+          <div className="radio">
             <p>Role :</p>
-            <input type="radio" id="roleParrain" name="role" value="Parrain" />
-            <label htmlFor="roleParrain">Parrain</label>
-            <input type="radio" id="rolePorteur" name="role" value="Porteur" />
-            <label htmlFor="rolePorteur">Porteur</label>
+            <div className="radio-choice">
+              {' '}
+              <input
+                type="radio"
+                id="roleParrain"
+                name="role"
+                value="PARRAIN"
+              />
+              <label htmlFor="roleParrain">Parrain</label>
+              <input
+                type="radio"
+                id="rolePorteur"
+                name="role"
+                value="PORTEUR"
+              />
+              <label htmlFor="rolePorteur">Porteur</label>
+            </div>
           </div>
           <div>
             <label htmlFor="email">Email :</label>
@@ -80,7 +90,9 @@ const CreateUserForm = () => {
               autoComplete="on"
             />
           </div>
-          <button type="submit">S'enregistrer</button>
+          <button type="submit" className="register-button">
+            S'enregistrer
+          </button>
         </form>
       </div>
     </div>

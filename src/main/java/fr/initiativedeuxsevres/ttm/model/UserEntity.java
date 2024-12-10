@@ -1,5 +1,8 @@
 package fr.initiativedeuxsevres.ttm.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -19,6 +22,7 @@ public class UserEntity {
     Long id;
     String nom;
     String prenom;
+    @Column(nullable = false, unique = true)
     String username;
     String password;
     String email;
