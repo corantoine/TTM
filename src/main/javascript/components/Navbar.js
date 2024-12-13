@@ -14,7 +14,7 @@ const Navbar = () => {
   }
   return (
     <nav className={`nav ${menuOpen ? 'open' : ''}`}>
-      <h1 className="header-title">Bienvenue sur TTM !</h1>{' '}
+      
       <ul className="nav-items">
         <li>
           {' '}

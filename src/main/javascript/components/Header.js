@@ -10,7 +10,7 @@ export default function Header() {
       <Link to="/">
         <LogoReseauInit2 />
       </Link>
-      <Navbar/>
+      <h1 className="header-title">Bienvenue sur TTM !</h1> <Navbar />
     </header>
   )
 }
