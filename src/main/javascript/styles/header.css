@@ -15,17 +15,18 @@
   svg {
     height: 6em;
   }
-
-  
 }
 
-
 h1.header-title {
-  position: absolute;
+  /* position: absolute; */
   left: 50%;
-  transform: translateX(-50%) translateY(10px);
+  /* transform: translateX(-50%) translateY(10px); */
   font-size: 2.3rem;
   color: #2e404f;
+}
+
+.nav {
+  width: 205px;
 }
 
 ul {
@@ -45,7 +46,6 @@ ul {
     }
   }
 
-  
   li {
     display: none;
   }
@@ -54,7 +54,8 @@ ul {
 /********** Media **********/
 
 @media (min-width: 768px) {
-  .burger-menu, .close-menu {
+  .burger-menu,
+  .close-menu {
     display: none;
   }
 }
@@ -81,11 +82,12 @@ ul {
   }
 
   .nav {
-    position: relative;
+    /* position: relative; */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    .close-menu{
+    justify-content: flex-end;
+    /* align-items: center; */
+    padding-right: 35px;
+    .close-menu {
       display: none;
     }
   }
@@ -100,15 +102,15 @@ ul {
     }
   }
 
-.open-burger{
-  border: 1px solid rgb(229, 25, 100);
-  display: flex;
-  flex-direction: column;
-}
+  .open-burger {
+    border: 1px solid rgb(229, 25, 100);
+    display: flex;
+    flex-direction: column;
+  }
 
   .burger-menu {
     cursor: pointer;
-    right: 0px; 
+    right: 0px;
     z-index: 1;
     svg {
       color: rgb(229, 25, 100);
@@ -119,15 +121,17 @@ ul {
 
   .nav.open {
     display: flex;
+    justify-content: flex-end;
     background-color: white;
     border-radius: 15px;
-    width: auto;
-    padding: 15px;
-    .burger-menu{
+    /* width: auto; */
+    /* padding: 15px; */
+    padding-right: 35px;
+    .burger-menu {
       display: none;
     }
-    .close-menu{
-      position: relative;
+    .close-menu {
+      /* position: relative; */
       display: flex;
       color: rgb(229, 25, 100);
       font-size: 50px;
@@ -135,14 +139,13 @@ ul {
       right: 20px;
     }
 
-    
     ul.nav-items {
       display: flex;
       flex-direction: column;
       position: absolute;
       width: auto;
-      right: 0px;
-      top: 85px;
+      right: 7px;
+      top: 130px;
       background-color: white;
       border: 1px solid red;
       border-radius: 1px 1px 15px 15px;
@@ -158,4 +161,3 @@ ul {
     }
   }
 }
-
