@@ -9,5 +9,4 @@ import fr.initiativedeuxsevres.ttm.model.PorteurEntity;
 
 @Repository
 public interface PorteurRepository extends JpaRepository<PorteurEntity, Long> {
-    Optional<PorteurEntity> findByUsername (String username);
 }

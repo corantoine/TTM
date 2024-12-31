@@ -11,5 +11,5 @@ import fr.initiativedeuxsevres.ttm.model.ParrainEntity;
 
 @Repository
 public interface ParrainRepository extends JpaRepository<ParrainEntity, Long> {
-    Optional<ParrainEntity> findByUsername(String username);
+
 }

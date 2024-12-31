@@ -20,7 +20,8 @@ public class ParrainService {
      * @param parrain l'entité parrain à créer
      * @return le parrain créé
      */
-    public  ParrainEntity createParrain(ParrainEntity parrain) {
+    //TODO : mappping
+    public ParrainEntity updateParrain(ParrainEntity parrain) {
         return parrainRepository.save(parrain);
     }
 
