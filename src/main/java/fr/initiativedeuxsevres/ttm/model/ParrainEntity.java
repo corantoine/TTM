@@ -1,23 +1,24 @@
 package fr.initiativedeuxsevres.ttm.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.SuperBuilder;
 
 @Data
 @Entity
-@SuperBuilder
-@EqualsAndHashCode(callSuper = true)
+@Builder
 @Table(name = "parrains")
-public class ParrainEntity extends UserEntity {
+public class ParrainEntity {
+    @Id
+    @GeneratedValue
+    private Long id;
     private String entrepriseRepresentee;
     private String presentationParcours;
     private String typeDeReseau;
     private String domaineExpertise;
     private String lieuxDeplacement;
-    private String disponibilites;
-
 
 }
