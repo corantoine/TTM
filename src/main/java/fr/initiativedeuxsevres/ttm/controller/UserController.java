@@ -24,7 +24,6 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    //TODO : Creation package Messages et classe UserDto
     public UserDtoOut createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
