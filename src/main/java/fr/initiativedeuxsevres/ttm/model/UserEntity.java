@@ -1,26 +1,22 @@
 package fr.initiativedeuxsevres.ttm.model;
 
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
 
 // Lombok génère automatiquement les getters, setters, toString, etc.
 @Data
@@ -33,6 +29,7 @@ import lombok.experimental.SuperBuilder;
 //@MappedSuperclass
 @Entity
 @Table(name = "users")
+//@EntityListeners(AuditingEntityListener.class) : Va avec @CreatedDate
 public class UserEntity {
     // Indique que ce champ est la clé primaire de l'entité
     @Id
@@ -48,6 +45,9 @@ public class UserEntity {
     private String email;
     private String disponibilites;
     private String plateformeInitiative;
+    //    FIXME: voir si c'est mieux que @PrePersist : @CreatedDate
+    private LocalDateTime creationDate;
+    private LocalDateTime modificationDate;
     //TODO : LIQUIBASE
     @OneToOne
     @JoinColumn(name = "id_parrain", nullable = true)
@@ -55,12 +55,19 @@ public class UserEntity {
     @OneToOne
     @JoinColumn(name = "id_porteur", nullable = true)
     private PorteurEntity porteur;
-//TODO : creationDate & modificationDate
-    // Indique que ce champ est une collection de rôles, stockée dans une table séparée dans la base de données
-    //TODO : Voir si pour utiliser Fetch join ou Entity Graph pour remplacer FetchType.EAGER
-//    @ElementCollection(fetch = FetchType.EAGER)
-    // Indique que les rôles seront stockés sous forme de chaînes de caractères dans la base de données
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    // Annotation permettant d'exécuter une méthode spécifique avant qu'une entité ne soit persistée en bdd.
+    // Ici, cela permet d'entrer la date du jour dans la colonne creationDate en BDD avant d'enregistrer l'utilisateur.
+    @PrePersist
+    private void setCreationDate() {
+        creationDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void setAccountLastUpdatedTime() {
+        modificationDate = LocalDateTime.now();
+    }
 
 }
