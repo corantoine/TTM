@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
+import fr.initiativedeuxsevres.ttm.repository.UserRepository;
 import fr.initiativedeuxsevres.ttm.service.UserService;
 
 /**
@@ -18,15 +19,32 @@ import fr.initiativedeuxsevres.ttm.service.UserService;
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/register")
     public UserDtoOut createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
+
+    //    @PostMapping("/register")
+    //    public String createUser(@RequestBody UserDto userDto) {
+    //        if (userRepository.existsByUsername(userDto.getUsername())) {
+    //            return "Erreur: Ce nom d'utilisateur existe déjà!";
+    //        }
+    //        userService.createUser(userDto);
+    //        return "L'utilisateur a bien été enregistré!";
+    //    }
+
+    @PostMapping("/login")
+    public UserDtoOut logInUser(@RequestBody UserDto userDto) {
+        String token = userService.lo
+    }
+
     //    @PostMapping("/register")
     //    public UserEntity createUser(@RequestBody UserEntity user){
     //        if(user.getRole() == Role.PORTEUR){

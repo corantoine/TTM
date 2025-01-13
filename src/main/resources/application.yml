@@ -5,16 +5,16 @@ spring:
   application:
     name: Trouve Ton Match
   datasource:
-    url: jdbc:postgresql://localhost:5432/ttm
+    url: jdbc:postgresql://localhost:5432/ttmv2
     username: postgres
     password: postgres
   thymeleaf:
     enable-spring-el-compiler: true
   jpa:
-      database: postgresql
-      show-sql: true
-      hibernate:
-        ddl-auto: create-drop
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
   springdoc:
     api-docs:
       path: /api-docs
