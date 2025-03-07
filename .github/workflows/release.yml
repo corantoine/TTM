@@ -11,13 +11,13 @@ jobs:
     with:
       release-branches: '^(main)$'
   # test à voir plus tard
-  # test:
-  #   name: Spring test
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   services:
-  #     postgres: 
-  #       image: postgres
+  test:
+    name: Spring test
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    services:
+      postgres:
+        image: postgres
 
         # Va récupérer les informations nécessaires à la connexion à la BDD à partir des secrets que j'ai configuré.
         env:
