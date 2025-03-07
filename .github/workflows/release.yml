@@ -1,3 +1,4 @@
+# Release ci
 on:
   push:
 
@@ -15,7 +16,7 @@ jobs:
   #   runs-on: ubuntu-latest
   #   continue-on-error: true
   #   services:
-  #     postgres:
+  #     postgres: 
   #       image: postgres
 
         # Va récupérer les informations nécessaires à la connexion à la BDD à partir des secrets que j'ai configuré.
