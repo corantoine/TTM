@@ -47,6 +47,7 @@ public class ConfigSpringSecurity {
                 .authorizeHttpRequests((auth) -> {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
+                            //TODO : autoriser route register seulement a ladmin
                             .requestMatchers("/", "/register").permitAll()
                             .requestMatchers("/css/**", "/favicon.ico").permitAll()
                             .requestMatchers("/picture/**").permitAll()

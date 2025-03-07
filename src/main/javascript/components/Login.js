@@ -6,6 +6,10 @@ const Login = () => {
     event.preventDefault();
  }
 
+    //récupérer les données du formulaire
+    const { username, password} =
+      Object.fromEntries(new FormData(e.target))
+
   return (
     <div className='login'>
         <div className='login-page-title-and-text'>
