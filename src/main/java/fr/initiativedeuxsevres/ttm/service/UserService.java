@@ -3,11 +3,12 @@ package fr.initiativedeuxsevres.ttm.service;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import org.springframework.context.annotation.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,15 +23,22 @@ import fr.initiativedeuxsevres.ttm.repository.UserRepository;
 
 @Service
 public class UserService {
-    private final UserRepository userRepository;
-    private final AuthenticationManager authenticationManager;
-    private final JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, @Lazy AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider) {
-        this.userRepository = userRepository;
-        this.authenticationManager = authenticationManager;
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+    //    public UserService(UserRepository userRepository, @Lazy AuthenticationManager authenticationManager, JwtTokenProvider jwtTokenProvider,
+    //            BCryptPasswordEncoder bCryptPasswordEncoder) {
+    //        this.userRepository = userRepository;
+    //        this.authenticationManager = authenticationManager;
+    //        this.jwtTokenProvider = jwtTokenProvider;
+    //        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    //    }
 
     /**
      * Crée un nouvel utilisateur et le sauvegarde
@@ -40,6 +48,8 @@ public class UserService {
      */
     public UserDtoOut createUser(@RequestBody UserDto userDto) {
         UserEntity user = UserDtoToUserEntityMapper.convertUserDtoToUserEntity(userDto);
+        String motDePasseEncrypte = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(motDePasseEncrypte);
         return UserEntityToUserOutputMapper.convertUserEntityToUserDtoOut(userRepository.save(user));
     }
 

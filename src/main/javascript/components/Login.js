@@ -11,25 +11,14 @@ const Login = () => {
   const loginContext = useContext(AuthContext)
   const navigate = useNavigate()
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault()
-  //   try {
-  //     const response = await loginUser(email, password)
-  //     if (response && response.result) {
-  //       loginContext()
-  //       navigate('/')
-  //     }
-  //   } catch (error) {
-  //     console.error('Login failed:', error)
-  //   }
-  // }
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     try {
       const response = await loginUser(email, password)
-      if (response && response.accessToken) {
-        loginContext.login()
+      console.log(response)
+
+      if (response) {
+        // loginContext.login()
         navigate('/matchs')
       }
     } catch (error) {
