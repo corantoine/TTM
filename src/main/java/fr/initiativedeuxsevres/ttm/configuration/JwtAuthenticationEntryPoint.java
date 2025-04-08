@@ -1,8 +1,8 @@
 package fr.initiativedeuxsevres.ttm.configuration;
 
 import java.io.IOException;
-import org.springframework.security.core.AuthenticationException;
 
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +18,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     // Méthode appelée à chaque fois qu'une exception d'auth se produit.
     @Override
-    public void commence(HttpServletRequest request,
+    public void commence(
+            HttpServletRequest request,
             HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
-
+        // renvoie une erreur 401 si l'auth échoue
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage());
     }
 

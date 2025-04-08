@@ -21,7 +21,7 @@
     }
   }
 
-  div.login-card {
+  div.form-container {
     align-items: center;
     padding: 1em;
     zoom: 120%;
@@ -102,7 +102,7 @@ form.login-form {
 
   }
 
-  div.login-card {
+  div.form-container {
     max-width: 100%;
 
     .login-input {

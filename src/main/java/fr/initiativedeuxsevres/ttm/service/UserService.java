@@ -53,7 +53,7 @@ public class UserService {
         throw new NoSuchElementException(erreurMessage);
     }
 
-    public String logIn(LoginDto loginDto) {
+    public String login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsername(),

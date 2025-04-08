@@ -46,10 +46,16 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
-        String token = userService.logIn(loginDto);
+        String token = userService.login(loginDto);
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
         return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
+    //    @PostMapping("/login")
+    //    public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
+    //        String token = userService.logIn(loginDto);
+    //        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
+    //        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
+    //    }
 
     //    @PostMapping("/register")
     //    public UserEntity createUser(@RequestBody UserEntity user){

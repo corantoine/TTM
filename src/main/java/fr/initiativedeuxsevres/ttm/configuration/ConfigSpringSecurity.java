@@ -3,15 +3,19 @@ package fr.initiativedeuxsevres.ttm.configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 import fr.initiativedeuxsevres.ttm.model.Role;
 
@@ -19,23 +23,40 @@ import fr.initiativedeuxsevres.ttm.model.Role;
 @EnableWebSecurity // Active la securité web Spring
 public class ConfigSpringSecurity {
 
-    private final UserDetailsService userDetailsService; // Interface utilisée pour récupérer les informations des utilisateurs
-    private final PasswordEncoder passwordEncoder; // Interface utilisée pour encoder les passwords
+    //    private final UserDetailsService userDetailsService; // Interface utilisée pour récupérer les informations des utilisateurs
+    //    private final PasswordEncoder passwordEncoder; // Interface utilisée pour encoder les passwords
     private final JwtAuthenticationFilter jwtAuthenticationFilter; // Votre filtre JWT
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Autowired
-    public ConfigSpringSecurity(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService,
-            JwtAuthenticationFilter jwtAuthenticationFilter) {
-        this.passwordEncoder = passwordEncoder;
-        this.userDetailsService = userDetailsService;
+    public ConfigSpringSecurity(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter) {
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
+    //    passwordEncoder, UserDetailsService userDetailsService,
+    //            JwtAuthenticationFilter jwtAuthenticationFilter) {
+    //        this.passwordEncoder = passwordEncoder;
+    //        this.userDetailsService = userDetailsService;
+    //        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+    //    }
 
     @Bean
     //TODO effectuer des tests pour les autorisations mises en place
     //Définition d'un bean pour l'encodage des mots de passe utilisant BCryptPasswordEncoder
-    public static PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    // Configure la stratégie de gestion du contexte de sécurité
+    @Bean
+    public SecurityContextHolderStrategy securityContextHolderStrategy() {
+        return SecurityContextHolder.getContextHolderStrategy();
+    }
+
+    // sauvegarde de sessions http
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new HttpSessionSecurityContextRepository();
     }
 
     @Bean
@@ -69,7 +90,7 @@ public class ConfigSpringSecurity {
                     // On transforme la fonction lambda
                 }).formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/", true)// Configure la page de connexion
+                        //                        .defaultSuccessUrl("/", true)// Configure la page de connexion
                         .permitAll()) // Permet à tout le monde d'accéder à la page de connexion
                 .logout(logout -> logout// Configure la déconnexion
                         //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
@@ -78,10 +99,9 @@ public class ConfigSpringSecurity {
                 .build();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
+
 }
