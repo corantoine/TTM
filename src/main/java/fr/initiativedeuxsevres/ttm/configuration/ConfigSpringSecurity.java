@@ -69,7 +69,7 @@ public class ConfigSpringSecurity {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
                             //TODO : autoriser route register seulement a ladmin
-                            .requestMatchers("/", "/register").permitAll()
+                            .requestMatchers("/", "/register", "/login").permitAll()
                             .requestMatchers("/css/**", "/favicon.ico").permitAll()
                             .requestMatchers("/picture/**").permitAll()
                             // Autoriser uniquement les ADMIN a acceder à ces pages
@@ -88,13 +88,14 @@ public class ConfigSpringSecurity {
                             .requestMatchers("/notifications").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
                             .requestMatchers("/boite%20a%20outils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name());
                     // On transforme la fonction lambda
-                }).formLogin(login -> login
-                        .loginPage("/login")
-                        //                        .defaultSuccessUrl("/", true)// Configure la page de connexion
-                        .permitAll()) // Permet à tout le monde d'accéder à la page de connexion
-                .logout(logout -> logout// Configure la déconnexion
-                        //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
-                        .permitAll()) // Permet à tout le monde de se déconnecter
+                })
+                //                }).formLogin(login -> login
+                //                        .loginPage("/login")
+                //                        //                        .defaultSuccessUrl("/", true)// Configure la page de connexion
+                //                        .permitAll()) // Permet à tout le monde d'accéder à la page de connexion
+                //                .logout(logout -> logout// Configure la déconnexion
+                //                        //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
+                //                        .permitAll()) // Permet à tout le monde de se déconnecter
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Ajout du filtre JWT
                 .build();
     }

@@ -30,19 +30,10 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/register")
+    @PostMapping(path = "/register")
     public UserDtoOut createUser(@RequestBody UserDto userDto) {
         return userService.createUser(userDto);
     }
-
-    //    @PostMapping("/register")
-    //    public String createUser(@RequestBody UserDto userDto) {
-    //        if (userRepository.existsByUsername(userDto.getUsername())) {
-    //            return "Erreur: Ce nom d'utilisateur existe déjà!";
-    //        }
-    //        userService.createUser(userDto);
-    //        return "L'utilisateur a bien été enregistré!";
-    //    }
 
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
@@ -50,31 +41,5 @@ public class UserController {
         JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
         return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
-    //    @PostMapping("/login")
-    //    public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
-    //        String token = userService.logIn(loginDto);
-    //        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
-    //        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
-    //    }
 
-    //    @PostMapping("/register")
-    //    public UserEntity createUser(@RequestBody UserEntity user){
-    //        if(user.getRole() == Role.PORTEUR){
-    //            return porteurService.createPorteur((PorteurEntity) user);
-    //        } else if (user.getRole() == Role.PARRAIN) {
-    //            return parrainService.createParrain((ParrainEntity) user);
-    //        } else {
-    //            throw new IllegalArgumentException("Une erreur est survenue") ;
-    //        }
-    //    }
-
-    //    @PostMapping
-    //    public PorteurEntity createPorteur(@RequestBody PorteurEntity porteur) {
-    //        return porteurService.createPorteur(porteur);
-    //    }
-    //
-    //    @PostMapping
-    //    public ParrainEntity createParrain(@RequestBody ParrainEntity parrain) {
-    //        return parrainService.createParrain(parrain);
-    //    }
 }
