@@ -2,7 +2,6 @@
 ```mermaid
 flowchart LR
 subgraph Page d'accueil porteurs/parrains
-uc1((Fil des profils))
 uc2((Se connecter))
 uc3((Espace d'échange))
 uc4((Notifications))
@@ -12,22 +11,20 @@ uc7((Mon profil))
 uc8((Rendez-vous))
 
 end
-user[Utilisateur 👩]
-port[Porteur 👶]
-parr[Parrain 👨‍🎤]
+user[Utilisateur]
+port[Porteur]
+parr[Parrain]
 
 parr --> user
 port --> user
 
 
-user --> uc1-. include .-> uc2
 user --> uc3-. include .-> uc2
 user --> uc4-. include .-> uc2
 user --> uc5-. include .-> uc2
 user --> uc6-. include .-> uc2
 user --> uc7-. include .-> uc2
 user --> uc8-. include .-> uc2
-
 ```
 
 # Page fil des profils
@@ -54,12 +51,11 @@ uc1 --> uc5
 uc5 --> uc2
 uc2 --> uc5
 
-user[Utilisateur 👩]
-port[Porteur 👶]
-parr[Parrain 👨‍🎤]
+user[Utilisateur]
+port[Porteur]
+parr[Parrain]
 parr --> user
 port --> user
-
 ```
 # Page Notifications
 ```mermaid
@@ -76,12 +72,11 @@ user --> uc1 -. include .-> log
 uc1 --> uc2
 uc1 --> uc3
 uc2 --> uc4
-user[Utilisateur 👩]
-port[Porteur 👶]
-parr[Parrain 👨‍🎤]
+user[Utilisateur]
+port[Porteur]
+parr[Parrain]
 parr --> user
 port --> user
-
 ```
 
 # Page boite à outils
@@ -91,16 +86,19 @@ subgraph Boite à outils
 log((connexion))
 uc1((Afficher boite à outils))
 uc2((consulter documents))
+uc3((Ajouter  document))
+uc4((Télécharger  document))
 end
 
 user --> uc1 -. include .-> log
 uc1 --> uc2
-user[Utilisateur 👩]
-port[Porteur 👶]
-parr[Parrain 👨‍🎤]
+uc1 --> uc3
+uc1 --> uc4
+user[Utilisateur]
+port[Porteur]
+parr[Parrain]
 parr --> user
 port --> user
-
 ```
 # Page Rendez-vous
 ```mermaid
@@ -108,16 +106,17 @@ flowchart LR
 subgraph Rendez-vous
 log((connexion))
 uc1((Afficher mes rendez-vous et leurs infos))
+uc2((Poser un rendez-vous))
 end
 
 user --> uc1 -. include .-> log
+parr --> uc2 -. include .-> log
 
-user[Utilisateur 👩]
-port[Porteur 👶]
-parr[Parrain 👨‍🎤]
+user[Utilisateur]
+port[Porteur]
+parr[Parrain]
 parr --> user
 port --> user
-
 ```
 
 # Page espace d'échange
@@ -154,7 +153,7 @@ subgraph Page Mon Profil
 log((connexion))
 uc1((Afficher profil))
 uc2((Modifier profil))
-uc3((Supprimer profil))
+uc3((Supprimer profil)) 
 end
 
 user[Utilisateur 👩]

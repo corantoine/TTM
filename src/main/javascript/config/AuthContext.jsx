@@ -3,19 +3,41 @@ import { createContext, useState } from 'react'
 
 export const AuthContext = createContext(undefined)
 
-export const AuthProvider = ({ children }) => {
-  const [isLogged, setIsLogged] = useState(false)
+function jwtDecode(t) {
+  if (t == undefined || t == null) {
+    return null
+  }
+  let encoded = t.split('.')
+  let token = {
+    header: JSON.parse(window.atob(encoded[0])),
+    payload: JSON.parse(window.atob(encoded[1])),
+    token: t,
+  }
+  return token
+}
 
-  const loginContext = () => {
-    setIsLogged(true)
+export const AuthProvider = ({ children }) => {
+  const [payload, setPayload] = useState(
+    jwtDecode(sessionStorage.getItem('accessToken'))
+  )
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken')
+  //   if (token) {
+  //     setIsLogged(true)
+  //   }
+  // }, [])
+
+  const login = (token) => {
+    sessionStorage.setItem('accessToken', token)
+    setPayload(jwtDecode(token))
   }
   const logout = () => {
     sessionStorage.removeItem('accessToken')
-    setIsLogged(false)
+    setPayload(null)
   }
 
   return (
-    <AuthContext.Provider value={{ isLogged, loginContext, logout }}>
+    <AuthContext.Provider value={{ payload, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

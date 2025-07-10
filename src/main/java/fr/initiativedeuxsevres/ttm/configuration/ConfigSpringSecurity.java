@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
-import fr.initiativedeuxsevres.ttm.model.Role;
+import jakarta.servlet.Filter;
 
 @Configuration // Annotation indiquant que cette classe contient des config Spring
 @EnableWebSecurity // Active la securité web Spring
@@ -27,11 +27,14 @@ public class ConfigSpringSecurity {
     //    private final PasswordEncoder passwordEncoder; // Interface utilisée pour encoder les passwords
     private final JwtAuthenticationFilter jwtAuthenticationFilter; // Votre filtre JWT
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Autowired
-    public ConfigSpringSecurity(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public ConfigSpringSecurity(JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint, JwtAuthenticationFilter jwtAuthenticationFilter,
+            JwtTokenProvider jwtTokenProvider) {
         this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
     //    passwordEncoder, UserDetailsService userDetailsService,
     //            JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -64,30 +67,22 @@ public class ConfigSpringSecurity {
         //configuration des règles de sécurité pour les requêtes http
         // Configure la page de connexion
         //TODO : Quand ma page login sera créee --> rajouter .loginPage("/cheminDeMaPageLogin") pour spécifier l'URL de ma page de login personnalisée
-        return http.csrf(AbstractHttpConfigurer::disable)
+        return http.
+                csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                )
+
                 .authorizeHttpRequests((auth) -> {
                     auth
                             // Autorise l'accès à tout le monde pour les pages d'accueil et d'inscription + la version stylisée du site
                             //TODO : autoriser route register seulement a ladmin
-                            .requestMatchers("/", "/register", "/login").permitAll()
-                            .requestMatchers("/css/**", "/favicon.ico").permitAll()
-                            .requestMatchers("/picture/**").permitAll()
-                            // Autoriser uniquement les ADMIN a acceder à ces pages
-                            .requestMatchers("/kpis").hasRole(Role.ADMIN.name())
-                            //TODO ici on utilise %20 pour représenter l'espace car c'est la manière standard d'encoder les espaces selon les spécifications des URL
-                            //TODO dans mon controller, mettre "/gestion d'utilisateurs"
-                            .requestMatchers("/gestion%20d'utilisateurs").hasRole(Role.ADMIN.name())
-                            // Autoriser uniquement l'accès aux "PARRAIN" ou "PORTEUR"
-                            .requestMatchers("/espace%20d'echange").hasAnyRole(Role.PARRAIN.name(),
-                                    Role.PORTEUR.name()) // Utilisation de hasAnyRole pour spécifier plusieurs rôles pouvant avoir acès a une route
-                            .requestMatchers("/matchs").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name())
-                            .requestMatchers("/profile").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name())
-                            .requestMatchers("/rendez-vous").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name())
-                            // Autoriser l'accès aux parrains / porteurs / admin
-                            .requestMatchers("/fil%20des%20profils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
-                            .requestMatchers("/notifications").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name())
-                            .requestMatchers("/boite%20a%20outils").hasAnyRole(Role.PARRAIN.name(), Role.PORTEUR.name(), Role.ADMIN.name());
-                    // On transforme la fonction lambda
+                            .requestMatchers("/", "/**/{path:[^\\.]+}", "/register", "/login").permitAll()
+                            .requestMatchers("/css/**").permitAll()
+                            .requestMatchers("/users/myprofil").authenticated()
+                            .requestMatchers("/picture/**").permitAll();
+                    //TODO ici on utilise %20 pour représenter l'espace car c'est la manière standard d'encoder les espaces selon les spécifications des URL
+                    //TODO dans mon controller, mettre "/gestion d'utilisateurs"
                 })
                 //                }).formLogin(login -> login
                 //                        .loginPage("/login")
@@ -96,9 +91,25 @@ public class ConfigSpringSecurity {
                 //                .logout(logout -> logout// Configure la déconnexion
                 //                        //TODO : ajouter redirection sur la page d'accueil lors d'une déconnexion
                 //                        .permitAll()) // Permet à tout le monde de se déconnecter
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Ajout du filtre JWT
+                .addFilterBefore((Filter) jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Ajout du filtre JWT
                 .build();
     }
+
+    //    @Bean
+    //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    //        http
+    //                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+    //                .and()
+    //                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), BasicAuthenticationFilter.class)
+    //                .csrf().disable()
+    //                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+    //                .and()
+    //                .authorizeHttpRequests((requests) -> requests
+    //                        .requestMatchers(HttpMethod.POST, "/login", "/register").permitAll()
+    //                        .anyRequest().authenticated())
+    //        ;
+    //        return http.build();
+    //    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {

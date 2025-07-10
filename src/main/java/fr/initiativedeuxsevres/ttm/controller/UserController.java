@@ -1,16 +1,16 @@
 package fr.initiativedeuxsevres.ttm.controller;
 
-import org.springframework.http.HttpStatus;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.initiativedeuxsevres.ttm.message.in.JwtAuthResponse;
-import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
-import fr.initiativedeuxsevres.ttm.message.in.UserDto;
-import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
+import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
+import fr.initiativedeuxsevres.ttm.model.UserEntity;
 import fr.initiativedeuxsevres.ttm.repository.UserRepository;
 import fr.initiativedeuxsevres.ttm.service.UserService;
 
@@ -19,7 +19,7 @@ import fr.initiativedeuxsevres.ttm.service.UserService;
  **/
 
 @RestController
-@RequestMapping
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -30,16 +30,51 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping(path = "/register")
-    public UserDtoOut createUser(@RequestBody UserDto userDto) {
-        return userService.createUser(userDto);
+    @GetMapping
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        List<UserEntity> users = userService.findAllUsers();
+        return ResponseEntity.ok(users);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
-        String token = userService.login(loginDto);
-        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
-        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
+    //    @GetMapping("/myprofil")
+    //    public ResponseEntity<UserProfileDtoOut> getMyProfil(Authentication authentication) {
+    //        String username = authentication.getName(); // récupère le username connecté
+    //        UserEntity user = userService.getUserByUsername(username)
+    //                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+    //
+    //        UserProfileDtoOut profileDtoOut = UserProfileDtoOut.builder()
+    //                .nom(user.getNom())
+    //                .prenom(user.getPrenom())
+    //                .username(user.getUsername())
+    //                .role(user.getRole())
+    //                .plateformeInitiative(user.getPlateformeInitiative())
+    //                .build();
+    //
+    //        return ResponseEntity.ok(profileDtoOut);
+    //    }
+
+    //    @GetMapping("/{userId}")
+    //    public ResponseEntity<UserDto> getUserById(@PathVariable UUID userId) {
+    //        UserEntity findUser = userService.findById(userId);
+    //        UserDto userDto = userMapperDto.mapUserToUserDto(findUser);
+    //        return ResponseEntity.ok(userDto);
+    //    }
+    @GetMapping("/myprofil")
+    public ResponseEntity<UserProfileDtoOut> getMyProfil(Authentication authentication) {
+        String usernameOrEmail = authentication.getName(); // récupère le username connecté
+        UserEntity user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+
+        UserProfileDtoOut profileDtoOut = UserProfileDtoOut.builder()
+                .nom(user.getNom())
+                .prenom(user.getPrenom())
+                .username(user.getUsername())
+                .role(user.getRole())
+                .plateformeInitiative(user.getPlateformeInitiative())
+                .build();
+
+        return ResponseEntity.ok(profileDtoOut);
+
     }
 
 }

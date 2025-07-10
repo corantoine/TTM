@@ -2,14 +2,16 @@ import React, { useContext, useState } from 'react'
 import '../styles/login.css'
 import { loginUser } from '../service/LoginUser'
 import { AuthContext } from '../config/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Input from './Input'
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const loginContext = useContext(AuthContext)
+  const { login } = useContext(AuthContext)
   const navigate = useNavigate()
+  const params = useParams()
+  const url = window.location.pathname
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -18,8 +20,8 @@ const Login = () => {
       console.log(response)
 
       if (response) {
-        // loginContext.login()
-        navigate('/matchs')
+        login(response.accessToken)
+        navigate(url == '/login' ? '/' : url)
       }
     } catch (error) {
       console.error('Login failed:', error)
@@ -42,16 +44,16 @@ const Login = () => {
           <h4 className="login-title">Connexion</h4>
           <Input
             type="email"
-            // name="Adresse email"
+            name="Nom d'utilisateur ou adresse email : "
             placeholder="Nom d'utilisateur ou e-mail"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             useValuseAsLabel={false}
             className="login-input"
-          />
+          ></Input>
           <Input
             type="password"
-            // name="Mot de passe"
+            name="Mot de passe : "
             placeholder="Mot de passe"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
