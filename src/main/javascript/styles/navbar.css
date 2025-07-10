@@ -3,28 +3,9 @@
   padding: 0;
 }
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: sans-serif;
-  height: 10.5rem;
-  padding: 0.5rem;
-  border-bottom: 1px solid rgb(229, 25, 100);
-}
-
-.header svg {
-  height: 6em;
-}
-
-h1.header-title {
-  left: 50%;
-  font-size: 2.3rem;
-  color: #2e404f;
-}
-
 .nav {
-  width: 205px;
+  /* width: 205px; */
+  width: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -47,10 +28,6 @@ ul .login-logo svg {
   cursor: pointer;
 }
 
-ul li {
-  /* tu peux ajouter des styles ici si nécessaire */
-}
-
 /********** Media Queries **********/
 
 @media (min-width: 768px) {
@@ -63,14 +40,11 @@ ul li {
     display: flex !important;
     flex-direction: row;
     gap: 20px;
+    margin: 16px;
   }
 }
 
 @media (max-width: 990px) {
-  h1.header-title {
-    font-size: 1.8em;
-  }
-
   ul .li-nav svg {
     width: 3em;
     height: auto;
@@ -78,11 +52,9 @@ ul li {
 }
 
 @media (max-width: 767px) {
-  h1.header-title {
-    display: none;
-  }
-
   .nav {
+    width: 100%;
+    position: relative;
     display: flex;
     justify-content: flex-end;
     padding-right: 35px;
@@ -90,14 +62,6 @@ ul li {
 
   .login-logo {
     display: none;
-  }
-
-  .header {
-    position: relative;
-  }
-
-  .header svg {
-    height: 5em;
   }
 
   .burger-menu {
@@ -137,14 +101,16 @@ ul li {
     display: flex;
     flex-direction: column;
     position: absolute;
-    right: 5px;
-    top: 30px;
+    top: 92px;
+    right: -5px;
+    width: 100vw;
+    max-width: 99vw;
     background-color: white;
-    border: 1px solid red;
-    border-radius: 1px 1px 15px 15px;
-    padding: 10px 15px;
+    border: 1px solid rgb(229, 25, 100);
     border-top: none;
-    z-index: 10;
+    border-radius: 0 0 15px 15px;
+    padding: 10px 15px;
+    box-sizing: border-box;
   }
 
   .nav.open ul li {

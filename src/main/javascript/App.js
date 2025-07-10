@@ -3,21 +3,24 @@ import Home from './components/Home'
 import Layout from './components/Layout'
 import React from 'react'
 import Login from './components/Login'
-import Match from './components/Match'
+import Profile from './components/Profile'
 import CreateUserForm from './components/CreateUserForm'
+import { AuthProvider } from './config/AuthContext'
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/matchs" element={<Match />} />
-            <Route path="/register" element={<CreateUserForm />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/Profile" element={<Profile />} />
+              <Route path="/register" element={<CreateUserForm />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   )

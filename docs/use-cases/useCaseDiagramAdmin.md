@@ -5,7 +5,7 @@ subgraph Page d'accueil admin
 log((Se connecter))
 uc1((Gestion d'utilisateurs))
 uc2((Fil des profils))
-uc4((Notifications))
+uc4((Notifications)) 
 uc5((Boite à outils))
 uc8((K P I))
 end

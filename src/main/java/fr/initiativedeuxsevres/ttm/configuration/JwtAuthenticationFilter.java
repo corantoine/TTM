@@ -1,9 +1,7 @@
 package fr.initiativedeuxsevres.ttm.configuration;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 // Execute Before Executing Spring Security Filters
 // Validate the JWT Token and Provides user details to Spring Security for Authentication
@@ -22,10 +23,10 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     // UserDetailsService interface de SSecurity utilisée pour charger les détails de l'user à partir d'une source de données.
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider, UserDetailsService userDetailsService) {
         this.jwtTokenProvider = jwtTokenProvider;
@@ -34,21 +35,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+            HttpServletResponse response,
+            FilterChain filterChain) throws ServletException, IOException {
 
         // Recup du token
         String token = getTokenFromRequest(request); // Extrait le token JWT de l'en-tête Authorization de la requête HTTP
 
         // Validation du Token
-        if(StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)){
+        if (StringUtils.hasText(token) && jwtTokenProvider.validateToken(token)) {
             String username = jwtTokenProvider.getUsername(token); // Token present && valide ? extraction du username a partir du token
             UserDetails userDetails = userDetailsService.loadUserByUsername(username); // charge les détails de l'user
 
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-              userDetails,
-              null,
-              userDetails.getAuthorities()
+                    userDetails,
+                    null,
+                    userDetails.getAuthorities()
             );
 
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -59,11 +60,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response); // Poursuite de la chaine de filtres pour continuer le traitement de la requête
     }
 
-    private String getTokenFromRequest(HttpServletRequest request){
+    private String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
 
-        if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")){
-            return bearerToken.substring(7, bearerToken.length()); //Cette méthode extrait le token JWT de l'en-tête Authorization de la requête HTTP. Si l'en-tête commence par "Bearer ", elle retourne le token sans le préfixe "Bearer ".
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7,
+                    bearerToken.length()); //Cette méthode extrait le token JWT de l'en-tête Authorization de la requête HTTP. Si l'en-tête commence par "Bearer ", elle retourne le token sans le préfixe "Bearer ".
         }
 
         return null;

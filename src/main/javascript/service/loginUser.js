@@ -1,14 +1,15 @@
-export async function loginUser(username, password) {
+export async function loginUser(username, password, role) {
   const loginUrl = new URL('http://localhost:8080/login')
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      Accept: 'application/json',
     },
     body: JSON.stringify({
       username: username,
       password: password,
+      role: role,
     }),
   }
 
@@ -19,7 +20,7 @@ export async function loginUser(username, password) {
     }
     const data = await response.json()
     if (data && data.accessToken) {
-      sessionStorage.setItem('accessToken', data.accessToken)
+      // localStorage.setItem('accessToken', data.accessToken)
       alert('Connexion réussie!')
       return data
     } else {
