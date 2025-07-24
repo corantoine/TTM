@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
+import fr.initiativedeuxsevres.ttm.message.in.UserUpdateDtoIn;
 import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
 import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
@@ -75,6 +76,10 @@ public interface UserService {
     Optional<UserEntity> getUserByUsernameOrEmail(String usernameOrEmail);
 
     UserProfileDtoOut getUserProfile(String usernameOrEmail);
+
+    //    void updateUser(String name, UserUpdateDtoIn dto);
+
+    void updateUserByEmail(String email, UserUpdateDtoIn dto);
 }
 
 

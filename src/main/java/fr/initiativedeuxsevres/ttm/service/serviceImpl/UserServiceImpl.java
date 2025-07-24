@@ -19,6 +19,7 @@ import fr.initiativedeuxsevres.ttm.converter.in.UserDtoToUserEntityMapper;
 import fr.initiativedeuxsevres.ttm.converter.out.UserEntityToUserOutputMapper;
 import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
+import fr.initiativedeuxsevres.ttm.message.in.UserUpdateDtoIn;
 import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
 import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
@@ -167,6 +168,7 @@ public class UserServiceImpl implements UserService {
             UserEntity user = maybeUser.get();
             firstLogin = user.isFirstLogin();
 
+            //FIXME
             //            if (firstLogin) {
             //                System.out.println("Premiere co detectée, maj de FIRST LOGIN a false.");
             //                user.setFirstLogin(false);
@@ -203,6 +205,26 @@ public class UserServiceImpl implements UserService {
                 .role(user.getRole())
                 .plateformeInitiative(user.getPlateformeInitiative())
                 .build();
+    }
+
+    @Override
+    public void updateUserByEmail(String email, UserUpdateDtoIn dto) {
+        if (dto.getPrenom() == null || dto.getPrenom().trim().isEmpty()) {
+            throw new IllegalArgumentException("Le prénom est obligatoire.");
+        }
+
+        if (dto.getNom() == null || dto.getNom().trim().isEmpty()) {
+            throw new IllegalArgumentException("Le nom est obligatoire.");
+        }
+
+        UserEntity user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+
+        user.setPrenom(dto.getPrenom());
+        user.setNom(dto.getNom());
+        user.setDisponibilites(dto.getDisponibilites());
+
+        userRepository.save(user);
     }
 
 }
