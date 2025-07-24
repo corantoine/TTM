@@ -1,13 +1,17 @@
 package fr.initiativedeuxsevres.ttm.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import fr.initiativedeuxsevres.ttm.message.in.UserUpdateDtoIn;
 import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
 import fr.initiativedeuxsevres.ttm.model.UserEntity;
 import fr.initiativedeuxsevres.ttm.repository.UserRepository;
@@ -83,6 +87,13 @@ public class UserController {
         String usernameOrEmail = authentication.getName();
         UserProfileDtoOut profile = userService.getUserProfile(usernameOrEmail);
         return ResponseEntity.ok(profile);
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<?> updateUser(@RequestBody UserUpdateDtoIn dto, Principal principal) {
+        String email = principal.getName();
+        userService.updateUserByEmail(email, dto);
+        return ResponseEntity.ok().build();
     }
 
 }

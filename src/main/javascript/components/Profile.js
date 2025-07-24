@@ -214,18 +214,34 @@ const Profile = () => {
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
-  const [profile, setProfile] = useState(null)
+  const [profile, setProfile] = useState({
+    prenom: '',
+    nom: '',
+    email: '',
+    disponibilites: [], // tableau pour multi-sélection
+    // autres champs...
+  })
+
   const [isEditing, setIsEditing] = useState(false)
+  const [showFirstLoginModal, setShowFirstLoginModal] = useState(false)
 
   useEffect(() => {
     const token = sessionStorage.getItem('accessToken')
-    console.log('TOKEN ---> : ', token)
 
     if (token) {
       getUserProfile(token)
         .then((data) => {
-          console.log('Données reçues :', data)
-          setProfile(data)
+          const disponibilites = Array.isArray(data.disponibilites)
+            ? data.disponibilites
+            : data.disponibilites
+            ? [data.disponibilites]
+            : []
+
+          setProfile({ ...data, disponibilites })
+
+          if (disponibilites.length === 0) {
+            setShowFirstLoginModal(true)
+          }
         })
         .catch((error) => console.error('Erreur chargement profil :', error))
     }
@@ -238,7 +254,7 @@ const Profile = () => {
     const token = sessionStorage.getItem('accessToken')
 
     try {
-      const response = await fetch('/api/users/me', {
+      const response = await fetch('/users/me', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -261,20 +277,26 @@ const Profile = () => {
   return (
     <main id="content">
       <section id="profile-info">
-        {/* Colonne gauche : photo, disponibilités, bouton suppression */}
+        {/* Colonne gauche */}
         <div className="left-column">
-          <img
-            className="profile-pic"
-            alt="Photo de profil de l'utilisateur"
-            src="http://3000/profilPic.jpg"
-          />
+          http://3000/profilPic.jpg
           <div className="plateforme-initiative">
             <h3>Plateforme initiative :</h3>
             <p>{profile.plateformeInitiative}</p>
           </div>
           <div className="availabilities">
             <h3>Disponibilités :</h3>
-            <p>lundi, mardi, mercredi, jeudi</p>
+            <div className="days">
+              {profile.disponibilites.length > 0 ? (
+                profile.disponibilites.map((jour, index) => (
+                  <span className="day-pill" key={index}>
+                    {jour}
+                  </span>
+                ))
+              ) : (
+                <p>Non renseigné</p>
+              )}
+            </div>
           </div>
           <div className="needs">
             <p>Types de réseaux / besoins</p>
@@ -286,35 +308,88 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Colonne droite : infos utilisateur et description */}
+        {/* Colonne droite */}
         <div className="right-column">
           {isEditing ? (
-            <form onSubmit={handleSubmit}>
-              <input
-                type="text"
-                value={profile.prenom}
-                onChange={(e) =>
-                  setProfile({ ...profile, prenom: e.target.value })
-                }
-              />
-              <input
-                type="text"
-                value={profile.nom}
-                onChange={(e) =>
-                  setProfile({ ...profile, nom: e.target.value })
-                }
-              />
-              <input
-                type="email"
-                value={profile.email}
-                onChange={(e) =>
-                  setProfile({ ...profile, email: e.target.value })
-                }
-              />
-              <button type="submit">Enregistrer</button>
-              <button type="button" onClick={() => setIsEditing(false)}>
-                Annuler
-              </button>
+            <form onSubmit={handleSubmit} className="edit-form">
+              <div className="form-group">
+                <label htmlFor="prenom">Prénom</label>
+                <input
+                  id="prenom"
+                  type="text"
+                  value={profile.prenom}
+                  onChange={(e) =>
+                    setProfile({ ...profile, prenom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="nom">Nom</label>
+                <input
+                  id="nom"
+                  type="text"
+                  value={profile.nom}
+                  onChange={(e) =>
+                    setProfile({ ...profile, nom: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  value={profile.email}
+                  onChange={(e) =>
+                    setProfile({ ...profile, email: e.target.value })
+                  }
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="disponibilites">Disponibilités</label>
+                <div className="checkbox-group">
+                  {[
+                    'Lundi',
+                    'Mardi',
+                    'Mercredi',
+                    'Jeudi',
+                    'Vendredi',
+                    'Samedi',
+                    'Dimanche',
+                  ].map((jour) => (
+                    <label key={jour}>
+                      <input
+                        type="checkbox"
+                        value={jour}
+                        checked={profile.disponibilites.includes(jour)}
+                        onChange={(e) => {
+                          const checked = e.target.checked
+                          const value = e.target.value
+                          setProfile((prev) => ({
+                            ...prev,
+                            disponibilites: checked
+                              ? [...prev.disponibilites, value]
+                              : prev.disponibilites.filter((d) => d !== value),
+                          }))
+                        }}
+                      />
+                      {jour}
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div className="form-buttons">
+                <button type="submit" className="confirm">
+                  Enregistrer
+                </button>
+                <button
+                  type="button"
+                  className="cancel"
+                  onClick={() => setIsEditing(false)}
+                >
+                  Annuler
+                </button>
+              </div>
             </form>
           ) : (
             <div className="user-info">
@@ -322,7 +397,6 @@ const Profile = () => {
                 <p>{profile.prenom}</p>
                 <p>{profile.nom}</p>
               </div>
-              <p>{profile.email}</p>
               <button onClick={() => setIsEditing(true)}>Modifier</button>
             </div>
           )}
@@ -336,7 +410,59 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* Modale de confirmation de suppression */}
+        {/* Modale de première connexion */}
+        {showFirstLoginModal && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <h3>Bienvenue !</h3>
+              <p>Merci de renseigner vos disponibilités :</p>
+              <div className="checkbox-group">
+                {[
+                  'Lundi',
+                  'Mardi',
+                  'Mercredi',
+                  'Jeudi',
+                  'Vendredi',
+                  'Samedi',
+                  'Dimanche',
+                ].map((jour) => (
+                  <label key={jour}>
+                    <input
+                      type="checkbox"
+                      value={jour}
+                      checked={profile.disponibilites.includes(jour)}
+                      onChange={(e) => {
+                        const checked = e.target.checked
+                        const value = e.target.value
+                        setProfile((prev) => ({
+                          ...prev,
+                          disponibilites: checked
+                            ? [...prev.disponibilites, value]
+                            : prev.disponibilites.filter((d) => d !== value),
+                        }))
+                      }}
+                    />
+                    {jour}
+                  </label>
+                ))}
+              </div>
+
+              <div className="modal-buttons">
+                <button
+                  className="confirm"
+                  onClick={() => {
+                    setShowFirstLoginModal(false)
+                    handleSubmit(new Event('submit'))
+                  }}
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Modale de suppression */}
         {isDeleteModalOpen && (
           <div className="modal-overlay">
             <div
