@@ -215,6 +215,7 @@ const Profile = () => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [confirmationText, setConfirmationText] = useState('')
   const [profile, setProfile] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
     const token = sessionStorage.getItem('accessToken')
@@ -231,6 +232,31 @@ const Profile = () => {
   }, [])
 
   if (!profile) return <p>Chargement du profil...</p>
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const token = sessionStorage.getItem('accessToken')
+
+    try {
+      const response = await fetch('/api/users/me', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(profile),
+      })
+
+      if (response.ok) {
+        alert('Profil mis à jour avec succès !')
+        setIsEditing(false)
+      } else {
+        alert('Erreur lors de la mise à jour du profil.')
+      }
+    } catch (error) {
+      console.error('Erreur :', error)
+    }
+  }
 
   return (
     <main id="content">
@@ -262,13 +288,45 @@ const Profile = () => {
 
         {/* Colonne droite : infos utilisateur et description */}
         <div className="right-column">
-          <div className="user-info">
-            <div className="name">
-              <p>{profile.prenom}</p>
-              <p>{profile.nom}</p>
+          {isEditing ? (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={profile.prenom}
+                onChange={(e) =>
+                  setProfile({ ...profile, prenom: e.target.value })
+                }
+              />
+              <input
+                type="text"
+                value={profile.nom}
+                onChange={(e) =>
+                  setProfile({ ...profile, nom: e.target.value })
+                }
+              />
+              <input
+                type="email"
+                value={profile.email}
+                onChange={(e) =>
+                  setProfile({ ...profile, email: e.target.value })
+                }
+              />
+              <button type="submit">Enregistrer</button>
+              <button type="button" onClick={() => setIsEditing(false)}>
+                Annuler
+              </button>
+            </form>
+          ) : (
+            <div className="user-info">
+              <div className="name">
+                <p>{profile.prenom}</p>
+                <p>{profile.nom}</p>
+              </div>
+              <p>{profile.email}</p>
+              <button onClick={() => setIsEditing(true)}>Modifier</button>
             </div>
-            <p>{profile.role}</p>
-          </div>
+          )}
+
           <div className="profile-description">
             <h2>DESCRIPTION DU PROJET ET DES BESOINS</h2>
             <p>

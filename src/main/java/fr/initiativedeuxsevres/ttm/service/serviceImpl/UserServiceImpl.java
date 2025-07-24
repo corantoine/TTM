@@ -167,11 +167,11 @@ public class UserServiceImpl implements UserService {
             UserEntity user = maybeUser.get();
             firstLogin = user.isFirstLogin();
 
-            if (firstLogin) {
-                System.out.println("Premiere co detectée, maj de FIRST LOGIN a false.");
-                user.setFirstLogin(false);
-                userRepository.save(user);
-            }
+            //            if (firstLogin) {
+            //                System.out.println("Premiere co detectée, maj de FIRST LOGIN a false.");
+            //                user.setFirstLogin(false);
+            //                userRepository.save(user);
+            //            }
         }
 
         String token = jwtTokenProvider.generateToken(authentication);
