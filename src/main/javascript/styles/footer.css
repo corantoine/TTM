@@ -12,6 +12,7 @@ body, html {
     font-family: sans-serif;
     border-top: 1px solid rgb(229, 25, 100); /* Bordure supérieure rouge */
     padding: 0.5rem;
+    width: 100%;
     svg{
       height: 6em;
     }

@@ -20,12 +20,6 @@ export const AuthProvider = ({ children }) => {
   const [payload, setPayload] = useState(
     jwtDecode(sessionStorage.getItem('accessToken'))
   )
-  // useEffect(() => {
-  //   const token = localStorage.getItem('accessToken')
-  //   if (token) {
-  //     setIsLogged(true)
-  //   }
-  // }, [])
 
   const login = (token) => {
     sessionStorage.setItem('accessToken', token)

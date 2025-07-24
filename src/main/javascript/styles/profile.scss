@@ -1,146 +1,211 @@
-//Desktop
-@media (min-width: 769px) {
-  #content {
-    padding-bottom: 1rem;
-  }
+#content {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #f2f2f2;
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+
   #profile-info {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    gap: 2rem;
+    background-color: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 1200px;
+    width: 100%;
 
-    .profile-pic {
-      margin: 50px;
-      overflow: hidden;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      aspect-ratio: 1 / 1;
-      align-self: center;
-    }
-
-    .identity {
+    .left-column {
+      flex: 1;
       display: flex;
       flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      justify-content: space-evenly;
+
+      .profile-pic {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 4px solid #e51964;
+      }
+
+      .availabilities,
+      .needs {
+        text-align: center;
+
+        h3 {
+          color: #e51964;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          margin: 0;
+        }
+      }
+
+      .profile-btn {
+        margin-top: 1rem;
+
+        button {
+          padding: 12px 24px;
+          border-radius: 30px;
+          background-color: #e51964;
+          color: white;
+          border: none;
+          font-weight: bold;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #c01755;
+          }
+        }
+      }
+    }
+
+    .right-column {
+      flex: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       justify-content: space-evenly;
 
       .user-info {
-        display: flex;
-        flex-direction: column;
+        text-align: center;
+        margin-bottom: 1rem;
+
+        .name {
+          font-size: 1.5rem;
+          font-weight: bold;
+          display: flex;
+          gap: 0.5rem;
+          justify-content: center;
+        }
+
+        p {
+          margin: 0.25rem 0;
+        }
       }
-      .name {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        max-width: min-content;
-        line-height: 1px;
-      }
-    }
 
-    .availabilities {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      margin: 0;
-      text-align: center;
-    }
+      .profile-description {
+        background-color: #fff;
+        border-left: 3px solid #e51964;
+        padding-left: 1.5rem;
 
-    .needs {
-      align-self: center;
-    }
+        h2 {
+          color: #e51964;
+          margin-bottom: 1rem;
+        }
 
-    .profile-btn {
-      display: flex;
-      flex-direction: column;
-      align-self: center;
-      text-align: center;
-      width: 5rem;
-
-      svg {
-        cursor: pointer;
-        color: #e31766;
+        p {
+          line-height: 1.6;
+        }
       }
     }
-  }
-
-  .profile-description {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 0.5rem;
-    margin: 1.5rem 3rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
   }
 }
 
-// @media (min-width: 801px) and (max-width: 1100px) {
-// }
+/********** Responsive **********/
+@media (max-width: 768px) {
+  #profile-info {
+    flex-direction: column;
 
-// Mobile 
-@media (max-width: 1100px) {
-  #content {
-    padding: 8px;
-    margin: 8px;
-
-    #profile-info {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin: 16px;
-      row-gap: 1rem;
-      font-size: 16px;
-
-      .profile-pic {
-        width: 140px;
-        height: 140px;
-        border-radius: 100%;
-      }
-    }
-
-    .availabilities {
-      // display: flex;
-      flex-direction: column;
-      text-align: center;
+    .left-column,
+    .right-column {
       width: 100%;
     }
 
-    .user-info {
-      display: flex;
+    .right-column .user-info .name {
       flex-direction: column;
-      justify-content: center;
-      text-align: center;
+    }
+  }
+}
+
+/********** Modale **********/
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 90%;
+  width: 400px;
+
+  h3 {
+    margin-bottom: 1rem;
+    color: #e51964;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
     }
 
-    .name {
-      line-height: 8px;
-    }
+    .cancel {
+      background-color: #ccc;
+      color: #333;
 
-    .profile-btn {
-      zoom: 1.5;
-
-      svg {
-        cursor: pointer;
-        color: #e31766;
+      &:hover {
+        background-color: #bbb;
       }
-      p {
-        display: none;
-      }
     }
 
-    .profile-description {
-      margin: 1rem;
-      padding: 0.5rem;
-      display: flex;
-      flex-direction: column;
-      text-align: center;
-      background-color: #fff;
-      border-radius: 0.5rem;
+    .confirm {
+      background-color: #e51964;
+      color: white;
+
+      &:hover {
+        background-color: #c01755;
+      }
     }
   }
 }

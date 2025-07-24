@@ -77,33 +77,50 @@ const Navbar = () => {
     setMenuOpen(!menuOpen)
   }
 
+  const handleLogout = () => {
+    logout()
+    navigate('/') // Redirection vers la page d'accueil après déconnexion
+  }
+
   return (
     <nav className={`nav ${menuOpen ? 'open' : ''}`}>
-      <div className="burger-menu" onClick={toggleMenu} aria-label="Ouvrir le menu">
+      <div
+        className="burger-menu"
+        onClick={toggleMenu}
+        aria-label="Ouvrir le menu"
+      >
         <BurgerMenu />
       </div>
 
       <ul className="nav-items">
-        <li><Link to="/">Accueil</Link></li>
+        <li>
+          <Link to="/">Accueil</Link>
+        </li>
         {!payload && (
-          <li><Link to="/login">Connexion</Link></li>
+          <li>
+            <Link to="/login">Connexion</Link>
+          </li>
         )}
         {payload && (
           <>
-            <li><Link to="/register">Créer user</Link></li>
-            <li>TEST</li>
+            <li>
+              <Link to="/register">Créer user</Link>
+            </li>
+            <li>
+              <Link to="/profile">Mon profil</Link>
+            </li>
             <li>TEST1</li>
             <li>TEST2</li>
-            <li>TEST3</li>
+            <li onClick={handleLogout} style={{cursor: 'pointer', fontWeight:'bold'}}>Logout</li>
           </>
         )}
       </ul>
 
-      <div className="login-logo">
-        
-      </div>
+      <div className="login-logo"></div>
 
-      <div className="close-menu" onClick={toggleMenu}>X</div>
+      <div className="close-menu" onClick={toggleMenu}>
+        X
+      </div>
     </nav>
   )
 }

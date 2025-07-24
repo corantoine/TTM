@@ -16,5 +16,6 @@ public class UserDtoOut {
     private String password;
     private String email;
     private Role role;
-
+    private PorteurDtoOut porteur;
+    private ParrainDtoOut parrain;
 }

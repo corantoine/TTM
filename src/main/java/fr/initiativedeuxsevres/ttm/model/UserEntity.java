@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -33,7 +34,7 @@ import lombok.NoArgsConstructor;
 public class UserEntity {
     // Indique que ce champ est la clé primaire de l'entité
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
     private String prenom;
@@ -57,6 +58,9 @@ public class UserEntity {
     private PorteurEntity porteur;
     @Enumerated(EnumType.STRING)
     private Role role;
+    // Champ permettant de vérifier si c'est la premiere connexion de l'utilisateur afin qu'il complète son profil
+    @Column(name = "first_login")
+    private Boolean firstLogin;
 
     // Annotation permettant d'exécuter une méthode spécifique avant qu'une entité ne soit persistée en bdd.
     // Ici, cela permet d'entrer la date du jour dans la colonne creationDate en BDD avant d'enregistrer l'utilisateur.
@@ -68,6 +72,10 @@ public class UserEntity {
     @PreUpdate
     private void setAccountLastUpdatedTime() {
         modificationDate = LocalDateTime.now();
+    }
+
+    public boolean isFirstLogin() {
+        return Boolean.TRUE.equals(firstLogin);
     }
 
 }

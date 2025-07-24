@@ -6,10 +6,11 @@ import Login from './components/Login'
 import Profile from './components/Profile'
 import CreateUserForm from './components/CreateUserForm'
 import { AuthProvider } from './config/AuthContext'
+import FilProfile from './pages/FilProfile'
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <BrowserRouter>
         <AuthProvider>
           <Routes>
@@ -18,6 +19,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/Profile" element={<Profile />} />
               <Route path="/register" element={<CreateUserForm />} />
+              <Route path="/fil-des-profils" element={<FilProfile />} />
             </Route>
           </Routes>
         </AuthProvider>
@@ -27,5 +29,3 @@ function App() {
 }
 
 export default App
-
-// PROBLEME EXECUTION REACT ROUTER DOM A REGLER.

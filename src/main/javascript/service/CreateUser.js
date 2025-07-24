@@ -1,5 +1,5 @@
 //Creation de la fonction async createUser()
-export async function CreateUser( nom, prenom, username, password, email, plateforme, role) {
+export async function CreateUser( nom, prenom, username, password, confirmPassword, email, plateforme, role) {
 
     const userURL = new URL("http://localhost:8080/register")
 
@@ -18,6 +18,7 @@ export async function CreateUser( nom, prenom, username, password, email, platef
             prenom: prenom,
             username: username,
             password: password,
+            confirmPassword, confirmPassword,
             email: email,
             plateformeInitiative: plateforme,
             role: role
