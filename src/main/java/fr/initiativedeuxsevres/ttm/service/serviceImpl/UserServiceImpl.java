@@ -222,7 +222,11 @@ public class UserServiceImpl implements UserService {
 
         user.setPrenom(dto.getPrenom());
         user.setNom(dto.getNom());
-        user.setDisponibilites(dto.getDisponibilites());
+
+        // ✅ Conversion de la liste en chaîne CSV
+        if (dto.getDisponibilites() != null) {
+            user.setDisponibilites(String.join(",", dto.getDisponibilites()));
+        }
 
         userRepository.save(user);
     }
