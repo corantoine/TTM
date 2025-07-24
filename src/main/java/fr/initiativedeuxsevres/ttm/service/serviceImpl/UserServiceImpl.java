@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
 import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
+import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
 import fr.initiativedeuxsevres.ttm.model.UserEntity;
 import fr.initiativedeuxsevres.ttm.repository.UserRepository;
 import fr.initiativedeuxsevres.ttm.service.UserService;
@@ -187,6 +189,20 @@ public class UserServiceImpl implements UserService {
 
     public Optional<UserEntity> getUserByUsernameOrEmail(String usernameOrEmail) {
         return userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+    }
+
+    @Override
+    public UserProfileDtoOut getUserProfile(String usernameOrEmail) {
+        UserEntity user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+
+        return UserProfileDtoOut.builder()
+                .nom(user.getNom())
+                .prenom(user.getPrenom())
+                .username(user.getUsername())
+                .role(user.getRole())
+                .plateformeInitiative(user.getPlateformeInitiative())
+                .build();
     }
 
 }

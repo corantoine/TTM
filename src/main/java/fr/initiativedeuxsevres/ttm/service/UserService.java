@@ -7,6 +7,7 @@ import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
 import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
+import fr.initiativedeuxsevres.ttm.message.out.UserProfileDtoOut;
 import fr.initiativedeuxsevres.ttm.model.UserEntity;
 
 //@Service
@@ -73,6 +74,7 @@ public interface UserService {
 
     Optional<UserEntity> getUserByUsernameOrEmail(String usernameOrEmail);
 
+    UserProfileDtoOut getUserProfile(String usernameOrEmail);
 }
 
 

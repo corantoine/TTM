@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -59,22 +58,29 @@ public class UserController {
     //        UserDto userDto = userMapperDto.mapUserToUserDto(findUser);
     //        return ResponseEntity.ok(userDto);
     //    }
+    //    @GetMapping("/myprofil")
+    //    public ResponseEntity<UserProfileDtoOut> getMyProfil(Authentication authentication) {
+    //        String usernameOrEmail = authentication.getName(); // récupère le username connecté
+    //        UserEntity user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+    //                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
+    //
+    //        UserProfileDtoOut profileDtoOut = UserProfileDtoOut.builder()
+    //                .nom(user.getNom())
+    //                .prenom(user.getPrenom())
+    //                .username(user.getUsername())
+    //                .role(user.getRole())
+    //                .plateformeInitiative(user.getPlateformeInitiative())
+    //                .build();
+    //
+    //        return ResponseEntity.ok(profileDtoOut);
+    //
+    //    }
+
     @GetMapping("/myprofil")
     public ResponseEntity<UserProfileDtoOut> getMyProfil(Authentication authentication) {
-        String usernameOrEmail = authentication.getName(); // récupère le username connecté
-        UserEntity user = userRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé"));
-
-        UserProfileDtoOut profileDtoOut = UserProfileDtoOut.builder()
-                .nom(user.getNom())
-                .prenom(user.getPrenom())
-                .username(user.getUsername())
-                .role(user.getRole())
-                .plateformeInitiative(user.getPlateformeInitiative())
-                .build();
-
-        return ResponseEntity.ok(profileDtoOut);
-
+        String usernameOrEmail = authentication.getName();
+        UserProfileDtoOut profile = userService.getUserProfile(usernameOrEmail);
+        return ResponseEntity.ok(profile);
     }
 
 }
