@@ -19,6 +19,8 @@ export async function loginUser(username, password, role) {
       throw new Error(`HTTP error! Status: ${response.status}`)
     }
     const data = await response.json()
+    console.log('REPONSE API ==>', data);
+    
     if (data && data.accessToken) {
       // localStorage.setItem('accessToken', data.accessToken)
       alert('Connexion réussie!')

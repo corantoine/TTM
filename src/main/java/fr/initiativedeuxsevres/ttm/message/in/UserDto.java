@@ -11,6 +11,7 @@ public class UserDto {
     private String plateformeInitiative;
     private String disponibilites;
     private String password;
+    private String confirmPassword;
     private String email;
     private Role role;
 }

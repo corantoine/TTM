@@ -1,13 +1,14 @@
-package fr.initiativedeuxsevres.ttm.message.in;
+package fr.initiativedeuxsevres.ttm.message.out;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class JwtAuthResponse {
-    private String accessToken;
+public class LoginResult {
+    private String token;
     private boolean firstLogin;
+
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 
+
 const Input = ({
+  id,
   type,
   name,
   placeholder,
@@ -12,8 +14,9 @@ const Input = ({
 }) => {
   return (
     <div className="input-form">
-      <label htmlFor={name}>{useValuseAsLabel ? value : name}</label>
+      <label htmlFor={id}>{useValuseAsLabel ? value : name}</label>
       <input
+        id={id}
         type={type}
         name={name}
         placeholder={placeholder}
@@ -21,9 +24,8 @@ const Input = ({
         value={value}
         onChange={onChange}
         checked={checked}
-      ></input>
+      />
     </div>
   )
 }
-
 export default Input

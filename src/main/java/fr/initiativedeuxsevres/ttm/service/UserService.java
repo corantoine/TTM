@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
+import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
 import fr.initiativedeuxsevres.ttm.model.UserEntity;
 
@@ -63,7 +64,8 @@ public interface UserService {
 
     UserDtoOut createUser(UserDto userDto);
 
-    String login(LoginDto loginDto);
+    //    String login(LoginDto loginDto);
+    LoginResult login(LoginDto loginDto);
 
     List<UserEntity> findAllUsers();
 

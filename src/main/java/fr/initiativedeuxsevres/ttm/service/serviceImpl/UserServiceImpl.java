@@ -18,6 +18,7 @@ import fr.initiativedeuxsevres.ttm.converter.in.UserDtoToUserEntityMapper;
 import fr.initiativedeuxsevres.ttm.converter.out.UserEntityToUserOutputMapper;
 import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
+import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
 import fr.initiativedeuxsevres.ttm.model.UserEntity;
 import fr.initiativedeuxsevres.ttm.repository.UserRepository;
@@ -54,11 +55,41 @@ public class UserServiceImpl implements UserService {
      * @param userDto L'entité user à créer
      * @return L'entité user créée et sauvegardée
      */
+    //    public UserDtoOut createUser(@RequestBody UserDto userDto) {
+    //        UserEntity user = UserDtoToUserEntityMapper.convertUserDtoToUserEntity(userDto);
+    //        String motDePasseEncrypte = passwordEncoder.encode(user.getPassword());
+    //        user.setPassword(motDePasseEncrypte);
+    //        return UserEntityToUserOutputMapper.convertUserEntityToUserDtoOut(userRepository.save(user));
+    //    }
+    @Override
     public UserDtoOut createUser(@RequestBody UserDto userDto) {
+        // Vérification des mots de passe
+        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+            throw new IllegalArgumentException("Les mots de passe ne correspondent pas.");
+        }
+
+        if (!isPasswordStrong(userDto.getPassword())) {
+            throw new IllegalArgumentException("Le mot de passe ne respecte pas les critères de sécurité.");
+        }
+
+        // Conversion DTO -> Entity
         UserEntity user = UserDtoToUserEntityMapper.convertUserDtoToUserEntity(userDto);
+
+        // Hachage du mot de passe
         String motDePasseEncrypte = passwordEncoder.encode(user.getPassword());
         user.setPassword(motDePasseEncrypte);
-        return UserEntityToUserOutputMapper.convertUserEntityToUserDtoOut(userRepository.save(user));
+        user.setFirstLogin(true);
+
+        // Sauvegarde en base
+        UserEntity savedUser = userRepository.save(user);
+
+        // Conversion Entity -> DTO de sortie
+        return UserEntityToUserOutputMapper.convertUserEntityToUserDtoOut(savedUser);
+    }
+
+    private boolean isPasswordStrong(String password) {
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[\\W_]).{8,}$";
+        return password != null && password.matches(regex);
     }
 
     public void deleteUserById(Long userId) {
@@ -71,7 +102,54 @@ public class UserServiceImpl implements UserService {
         throw new NoSuchElementException(erreurMessage);
     }
 
-    public String login(LoginDto loginDto) {
+    //    public String login(LoginDto loginDto) {
+    //        Authentication authentication = authenticationManager.authenticate(
+    //                new UsernamePasswordAuthenticationToken(
+    //                        loginDto.getUsername(),
+    //                        loginDto.getPassword()
+    //                )
+    //        );
+    //        SecurityContextHolder.getContext().setAuthentication(authentication);
+    //        //TODO si ca ne marche pas
+    //        // Récupération du user
+    //        Optional<UserEntity> maybeUser = userRepository.findByUsername(
+    //                loginDto.getUsername()
+    //        );
+    //        if (maybeUser.isPresent()) {
+    //            UserEntity user = maybeUser.get();
+    //            // Mise à jour de firstLogin si 1ere connexion
+    //            if (user.isFirstLogin()) {
+    //                user.setFirstLogin(false);
+    //                userRepository.save(user);
+    //            }
+    //        }
+    //
+    //        return jwtTokenProvider.generateToken(authentication);
+    //    }
+
+    //    @Override
+    //    public String login(LoginDto loginDto) {
+    //        Authentication authentication = authenticationManager.authenticate(
+    //                new UsernamePasswordAuthenticationToken(
+    //                        loginDto.getUsername(),
+    //                        loginDto.getPassword()
+    //                )
+    //        );
+    //        SecurityContextHolder.getContext().setAuthentication(authentication);
+    //
+    //        Optional<UserEntity> maybeUser = userRepository.findByUsername(loginDto.getUsername());
+    //        maybeUser.ifPresent(user -> {
+    //            if (user.isFirstLogin()) {
+    //                user.setFirstLogin(false);
+    //                userRepository.save(user);
+    //            }
+    //        });
+    //
+    //        return jwtTokenProvider.generateToken(authentication);
+    //    }
+
+    @Override
+    public LoginResult login(LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginDto.getUsername(),
@@ -79,7 +157,23 @@ public class UserServiceImpl implements UserService {
                 )
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtTokenProvider.generateToken(authentication);
+
+        Optional<UserEntity> maybeUser = userRepository.findByUsername(loginDto.getUsername());
+        boolean firstLogin = false;
+
+        if (maybeUser.isPresent()) {
+            UserEntity user = maybeUser.get();
+            firstLogin = user.isFirstLogin();
+
+            if (firstLogin) {
+                System.out.println("Premiere co detectée, maj de FIRST LOGIN a false.");
+                user.setFirstLogin(false);
+                userRepository.save(user);
+            }
+        }
+
+        String token = jwtTokenProvider.generateToken(authentication);
+        return new LoginResult(token, firstLogin);
     }
 
     public List<UserEntity> findAllUsers() {

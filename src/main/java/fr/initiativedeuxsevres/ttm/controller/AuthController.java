@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.initiativedeuxsevres.ttm.message.in.JwtAuthResponse;
 import fr.initiativedeuxsevres.ttm.message.in.LoginDto;
 import fr.initiativedeuxsevres.ttm.message.in.UserDto;
+import fr.initiativedeuxsevres.ttm.message.out.LoginResult;
 import fr.initiativedeuxsevres.ttm.message.out.UserDtoOut;
 import fr.initiativedeuxsevres.ttm.repository.UserRepository;
 import fr.initiativedeuxsevres.ttm.service.UserService;
@@ -31,10 +32,23 @@ public class AuthController {
         return userService.createUser(userDto);
     }
 
+    //    @PostMapping("/login")
+    //    public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
+    //        String token = userService.login(loginDto);
+    //
+    //        Optional<UserEntity> maybeUser =
+    //                userService.getUserByUsername(loginDto.getUsername());
+    //        boolean firstLogin = maybeUser.map(UserEntity::isFirstLogin).orElse(false);
+    //
+    //        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token, firstLogin);
+    //        return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
+    //    }
+
     @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> logInUser(@RequestBody LoginDto loginDto) {
-        String token = userService.login(loginDto);
-        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(token);
+        LoginResult result = userService.login(loginDto);
+        JwtAuthResponse jwtAuthResponse = new JwtAuthResponse(result.getToken(), result.isFirstLogin());
         return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
     }
+
 }
