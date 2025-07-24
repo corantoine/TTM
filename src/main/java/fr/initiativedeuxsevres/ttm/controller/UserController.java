@@ -78,6 +78,8 @@ public class UserController {
 
     @GetMapping("/myprofil")
     public ResponseEntity<UserProfileDtoOut> getMyProfil(Authentication authentication) {
+        System.out.println("Appel du endpoint /users/myprofil");
+
         String usernameOrEmail = authentication.getName();
         UserProfileDtoOut profile = userService.getUserProfile(usernameOrEmail);
         return ResponseEntity.ok(profile);
