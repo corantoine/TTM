@@ -9,7 +9,7 @@ jobs:
   get-version:
     uses: shiipou/github-actions/.github/workflows/get-version.yml@main
     with:
-      release-branches: '^(main)$'
+      release-branch: '^(main)$'
   # test à voir plus tard
   test:
     name: Spring test
